@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dream & Vision Adventures With God</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--night:#0D1B3E;--deep-navy:#152550;--cloud-blue:#4A7BB7;--moon-gold:#E8B84B;--star-bright:#FFD700;--blanket-red:#B83A52;--dove-purple:#5B4A8A;--text-white:#F0F6FF;--cloud-light:#8AAED4;--teal:#3A8C6E;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--night);font-family:'Nunito',sans-serif;color:var(--text-white);min-height:100vh;overflow-x:hidden;}
+#starfield{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;}
+.screen{display:none;animation:fadeIn .45s ease;}
+.screen.active{display:flex;flex-direction:column;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* COVER */
+#cover{min-height:100vh;align-items:center;justify-content:center;text-align:center;position:relative;z-index:1;padding:2rem;}
+.moon{position:absolute;top:28px;right:48px;width:72px;height:72px;}
+.moon::before{content:'';display:block;width:72px;height:72px;border-radius:50%;background:var(--moon-gold);box-shadow:0 0 30px rgba(232,184,75,.5);}
+.moon::after{content:'';position:absolute;top:-6px;left:12px;width:62px;height:62px;border-radius:50%;background:#152550;}
+.sparkle{position:absolute;pointer-events:none;animation:twinkle 2.5s infinite alternate;}
+@keyframes twinkle{from{opacity:.4;transform:scale(.8)}to{opacity:1;transform:scale(1.2)}}
+.cover-inner{position:relative;z-index:2;max-width:560px;}
+.ctitle .l1{font-family:'Fredoka One',cursive;font-size:clamp(2.5rem,8vw,4rem);color:#fff;display:block;line-height:1.05;text-shadow:0 4px 24px rgba(0,0,0,.6);}
+.ctitle .l2{font-family:'Fredoka One',cursive;font-size:clamp(1.8rem,5vw,2.8rem);color:var(--moon-gold);display:block;line-height:1.05;}
+.ctitle .l3{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,3.4rem);color:#fff;display:block;line-height:1.05;}
+.verse-band{background:rgba(26,45,90,.85);border:1px solid rgba(232,184,75,.4);border-radius:14px;padding:.9rem 1.4rem;font-family:'Caveat',cursive;font-size:1.05rem;margin:1rem auto;max-width:420px;}
+.verse-ref{color:var(--moon-gold);font-weight:700;font-size:.85rem;margin-top:.2rem;display:block;}
+.name-field{background:var(--moon-gold);border-radius:16px;padding:1rem 1.6rem;margin:1.2rem auto 1.6rem;max-width:360px;}
+.name-field label{display:block;font-weight:800;color:var(--night);font-size:.88rem;margin-bottom:.4rem;}
+.name-field input{width:100%;background:transparent;border:none;border-bottom:2px solid var(--night);font-family:'Caveat',cursive;font-size:1.4rem;color:var(--night);outline:none;text-align:center;}
+.name-field input::placeholder{color:rgba(13,27,62,.4);}
+.btn-primary{background:linear-gradient(135deg,var(--cloud-blue),var(--dove-purple));color:#fff;font-family:'Fredoka One',cursive;font-size:1.25rem;border:none;border-radius:50px;padding:.85rem 2.5rem;cursor:pointer;box-shadow:0 6px 24px rgba(74,123,183,.4);transition:transform .15s;}
+.btn-primary:hover{transform:translateY(-3px);}
+
+/* HUB */
+#hub{min-height:100vh;position:relative;z-index:1;padding:1.2rem .8rem 3rem;align-items:center;}
+.hub-header{text-align:center;margin-bottom:1.2rem;}
+.hub-header h1{font-family:'Fredoka One',cursive;font-size:1.6rem;color:var(--moon-gold);}
+.hub-header p{font-size:.82rem;color:var(--cloud-light);margin-top:.15rem;}
+.nav-tabs{display:flex;gap:.35rem;justify-content:center;margin-bottom:1.2rem;flex-wrap:wrap;}
+.tab-btn{background:rgba(74,123,183,.2);border:1px solid rgba(74,123,183,.4);color:var(--cloud-light);font-family:'Nunito';font-weight:700;font-size:.77rem;border-radius:50px;padding:.38rem .95rem;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.tab-btn.active,.tab-btn:hover{background:var(--cloud-blue);color:#fff;border-color:var(--cloud-blue);}
+.tab-content{display:none;width:100%;max-width:700px;margin:0 auto;}
+.tab-content.active{display:block;animation:fadeIn .35s ease;}
+
+/* CARDS */
+.card{background:rgba(21,37,80,.85);border:1px solid rgba(74,123,183,.3);border-radius:18px;padding:1.3rem;margin-bottom:.9rem;backdrop-filter:blur(8px);}
+.band{border-radius:12px;padding:.55rem 1.1rem;font-family:'Fredoka One',cursive;font-size:1rem;color:#fff !important;margin-bottom:.8rem;text-align:center;}
+.band-blue{background:linear-gradient(135deg,var(--cloud-blue),#2E6EA6);}
+.band-gold{background:linear-gradient(135deg,#C8960C,var(--moon-gold));}
+.band-purple{background:linear-gradient(135deg,var(--dove-purple),#8B6FBE);}
+.band-teal{background:linear-gradient(135deg,var(--teal),#4DB896);}
+.band-red{background:linear-gradient(135deg,var(--blanket-red),#D94F6A);}
+
+/* FORMS */
+.ff{margin-bottom:.85rem;}
+.ff label{display:block;font-weight:800;font-size:.82rem;color:var(--moon-gold);margin-bottom:.3rem;}
+.ff input[type=text],.ff textarea,.ff select{width:100%;background:rgba(14,29,64,.8);border:1.5px solid rgba(74,123,183,.4);border-radius:10px;padding:.55rem .85rem;color:var(--text-white);font-family:'Nunito';font-size:.85rem;outline:none;resize:vertical;transition:border-color .2s;}
+.ff input:focus,.ff textarea:focus{border-color:var(--moon-gold);}
+.ff textarea{min-height:75px;}
+.chip{background:rgba(74,123,183,.2);border:1.5px solid rgba(74,123,183,.4);border-radius:50px;padding:.28rem .8rem;font-size:.78rem;font-weight:700;cursor:pointer;transition:all .2s;color:var(--cloud-light);display:inline-block;margin:.18rem;}
+.chip.sel{background:var(--cloud-blue);border-color:var(--cloud-blue);color:#fff;}
+
+/* ENTRY NAV */
+.enav{display:flex;gap:.35rem;margin-bottom:.9rem;flex-wrap:wrap;}
+.eb{background:rgba(74,123,183,.15);border:1px solid rgba(74,123,183,.3);color:var(--cloud-light);border-radius:8px;padding:.28rem .7rem;font-size:.72rem;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.eb.active,.eb:hover{background:var(--cloud-blue);color:#fff;border-color:var(--cloud-blue);}
+.stab{display:none;}
+.stab.active{display:block;animation:fadeIn .3s ease;}
+
+/* MARKUP */
+.markup-bar{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;padding:.55rem;background:rgba(14,29,64,.7);border-radius:10px 10px 0 0;border:1px solid rgba(74,123,183,.3);border-bottom:none;}
+.mb{padding:.25rem .7rem;border-radius:6px;border:2px solid transparent;font-size:.75rem;font-weight:800;cursor:pointer;font-family:'Nunito';transition:all .15s;}
+.mb:hover{transform:scale(1.05);}
+#markupDisplay{width:100%;min-height:150px;background:rgba(14,29,64,.8);border:1px solid rgba(74,123,183,.4);border-radius:0 0 10px 10px;padding:.75rem .9rem;color:var(--text-white);font-family:'Caveat',cursive;font-size:1rem;line-height:1.9;outline:none;resize:vertical;}
+.mark-circle{background:rgba(255,80,80,.25);border:2px solid #ff5050;border-radius:4px;padding:0 2px;}
+.mark-star{background:rgba(255,215,0,.28);border-bottom:3px solid var(--star-bright);padding:0 2px;}
+.mark-underline{text-decoration:underline;text-decoration-color:#4A7BB7;text-underline-offset:3px;}
+.mark-heart{background:rgba(255,100,150,.25);border-radius:4px;padding:0 2px;}
+
+/* CANVAS */
+.draw-area{border:2px dashed rgba(74,123,183,.5);border-radius:14px;background:rgba(14,29,64,.6);overflow:hidden;}
+.dtoolbar{display:flex;gap:.38rem;align-items:center;padding:.5rem .55rem;flex-wrap:wrap;border-bottom:1px solid rgba(74,123,183,.2);}
+.cdot{width:21px;height:21px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:transform .15s;flex-shrink:0;}
+.cdot.active,.cdot:hover{border-color:#fff;transform:scale(1.2);}
+.sbtn{background:rgba(74,123,183,.3);border:1px solid rgba(74,123,183,.4);color:#fff;border-radius:6px;padding:.2rem .5rem;cursor:pointer;font-size:.75rem;transition:background .2s;}
+.sbtn:hover,.sbtn.active{background:var(--cloud-blue);}
+.ebtn{background:rgba(74,123,183,.2);border:1px solid rgba(74,123,183,.4);color:var(--cloud-light);border-radius:6px;padding:.2rem .65rem;cursor:pointer;font-size:.75rem;}
+.ebtn.active{background:rgba(255,255,255,.2);color:#fff;border-color:#fff;}
+.cbtn{background:rgba(184,58,82,.3);border:1px solid rgba(184,58,82,.5);color:#fff;border-radius:6px;padding:.2rem .65rem;cursor:pointer;font-size:.75rem;margin-left:auto;}
+.cbtn:hover{background:var(--blanket-red);}
+.draw-canvas{display:block;width:100%;touch-action:none;cursor:crosshair;}
+
+/* DETECTIVE PAGE */
+.dp-wrap{background:rgba(240,230,210,.97);border-radius:18px;overflow:hidden;color:#1A1A2E;}
+.dp-hdr{background:linear-gradient(135deg,#1A2D5A,#2E4A8A);padding:.9rem 1.2rem;text-align:center;}
+.dp-hdr h2{font-family:'Fredoka One',cursive;font-size:1.2rem;color:var(--moon-gold);}
+.dp-title-row{display:flex;align-items:center;gap:.5rem;padding:.7rem 1.1rem;background:rgba(255,250,235,.95);border-bottom:2px solid #d4c89a;}
+.dp-title-row label{font-weight:800;font-size:.82rem;color:#1A1A2E;white-space:nowrap;}
+.dp-title-row input{flex:1;background:transparent;border:none;border-bottom:2px solid #8B7A50;outline:none;font-family:'Caveat',cursive;font-size:1.05rem;color:#1A1A2E;padding:.05rem .25rem;}
+.dp-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+.dp-col{padding:.85rem;}
+.dp-col:first-child{border-right:1px solid #d4c89a;}
+.dps{background:rgba(255,255,255,.65);border:2px dashed #8B7A50;border-radius:12px;padding:.75rem;margin-bottom:.75rem;}
+.dps h3{font-family:'Fredoka One',cursive;font-size:.9rem;color:#2E4A8A;margin-bottom:.45rem;border-bottom:1px solid #d4c89a;padding-bottom:.25rem;}
+.dps textarea{width:100%;background:transparent;border:none;outline:none;font-family:'Nunito';font-size:.78rem;color:#1A1A2E;resize:vertical;min-height:55px;line-height:1.6;}
+.dps textarea::placeholder{color:#8B7A50;}
+.clue-row{display:flex;align-items:center;gap:.45rem;margin-bottom:.32rem;}
+.clue-row span{font-size:.8rem;font-weight:700;color:#2E4A8A;min-width:68px;}
+.clue-row input{flex:1;background:transparent;border:none;border-bottom:1.5px solid #8B7A50;outline:none;font-family:'Caveat',cursive;font-size:.9rem;color:#1A1A2E;padding:.03rem .15rem;}
+.ask-item{font-family:'Caveat',cursive;font-size:.95rem;color:#3A2A0A;margin-bottom:.42rem;font-style:italic;background:rgba(255,250,235,.5);border-radius:6px;padding:.3rem .55rem;}
+.verse-box{background:rgba(255,250,235,.9);border:2px solid #C8960C;border-radius:12px;padding:.7rem .9rem;margin-top:.5rem;}
+.verse-box p{font-family:'Caveat',cursive;font-size:.95rem;color:#2E4A8A;line-height:1.6;}
+.sym-row{display:grid;grid-template-columns:90px 1fr 22px;gap:.35rem;align-items:center;margin-bottom:.45rem;}
+.sym-row .sym-icon-input{background:rgba(255,248,232,.8);border:1.5px solid #d4c89a;border-radius:8px;font-size:1.05rem;color:#1A1A2E;padding:.28rem .35rem;text-align:center;width:100%;outline:none;font-family:'Nunito';}
+.sym-row .sym-icon-input:focus{border-color:#8B6F30;}
+.sym-row .sym-meaning-input{flex:1;background:transparent;border:none;border-bottom:1.5px solid #8B7A50;outline:none;font-family:'Nunito';font-size:.76rem;color:#1A1A2E;padding:.03rem .15rem;}
+.sym-row .sym-del{background:none;border:none;color:#8B7A50;cursor:pointer;font-size:.88rem;padding:0;line-height:1;flex-shrink:0;}
+.add-sym{background:rgba(46,74,138,.12);border:1px dashed #8B7A50;border-radius:6px;padding:.22rem .55rem;font-size:.72rem;cursor:pointer;color:#2E4A8A;font-weight:700;width:100%;margin-top:.25rem;}
+.add-sym:hover{background:rgba(46,74,138,.25);}
+.dp-scene{background:rgba(255,255,255,.8);border-radius:10px;margin-bottom:.75rem;overflow:hidden;}
+.dp-scene-lbl{font-size:.7rem;font-weight:800;color:#8B7A50;text-align:center;padding:.25rem;background:rgba(255,250,235,.8);}
+
+/* SCRIPTURE */
+.scr-bar{display:flex;gap:.45rem;margin-bottom:.85rem;}
+.scr-bar input{flex:1;background:rgba(14,29,64,.8);border:1.5px solid rgba(74,123,183,.4);border-radius:10px;padding:.55rem .85rem;color:var(--text-white);font-family:'Nunito';font-size:.85rem;outline:none;transition:border-color .2s;}
+.scr-bar input:focus{border-color:var(--moon-gold);}
+.scr-bar button{background:var(--cloud-blue);border:none;border-radius:10px;padding:.55rem 1rem;color:#fff;font-family:'Fredoka One',cursive;font-size:.88rem;cursor:pointer;white-space:nowrap;}
+.scr-bar button:hover{background:#2E6EA6;}
+.vr{background:rgba(21,37,80,.85);border:1px solid rgba(74,123,183,.3);border-radius:14px;padding:1.1rem;margin-bottom:.7rem;animation:fadeIn .3s ease;}
+.vr .vref{font-family:'Fredoka One',cursive;color:var(--moon-gold);font-size:.95rem;margin-bottom:.4rem;}
+.vr .vtxt{font-family:'Caveat',cursive;font-size:1.08rem;color:var(--text-white);line-height:1.78;}
+.vr .vadd{background:rgba(58,140,110,.3);border:1px solid var(--teal);color:var(--text-white);border-radius:8px;padding:.25rem .75rem;font-size:.73rem;cursor:pointer;margin-top:.5rem;font-family:'Nunito';font-weight:700;transition:background .2s;display:inline-block;}
+.vr .vadd:hover{background:var(--teal);}
+.vr-expand{transition:all .2s !important;}
+.vr-expand:hover{background:rgba(74,123,183,.4) !important;color:#fff !important;border-color:var(--cloud-blue) !important;}
+.ch-expand{animation:fadeIn .3s ease;}
+.qv{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.8rem;}
+.qvc{background:rgba(74,123,183,.2);border:1px solid rgba(74,123,183,.4);border-radius:50px;padding:.25rem .8rem;font-size:.75rem;cursor:pointer;color:var(--cloud-light);font-weight:700;transition:all .2s;}
+.qvc:hover{background:var(--cloud-blue);color:#fff;border-color:var(--cloud-blue);}
+.scr-loading{text-align:center;padding:1.5rem;color:var(--cloud-light);font-style:italic;}
+
+/* LOG */
+.logt{width:100%;border-collapse:collapse;font-size:.78rem;}
+.logt th{background:var(--cloud-blue);color:#fff;padding:.45rem .55rem;text-align:left;font-weight:800;}
+.logt th:first-child{border-radius:8px 0 0 0;}.logt th:last-child{border-radius:0 8px 0 0;}
+.logt td{padding:.38rem .55rem;border-bottom:1px solid rgba(74,123,183,.2);color:var(--text-white);}
+.logt tr:nth-child(even) td{background:rgba(74,123,183,.07);}
+.ck-g{display:flex;gap:.45rem;align-items:center;}
+.ck-g label{font-size:.72rem;color:var(--cloud-light);display:flex;align-items:center;gap:.2rem;cursor:pointer;}
+.ck-g input{accent-color:var(--moon-gold);}
+
+/* ENTRIES */
+.eli{background:rgba(21,37,80,.85);border:1px solid rgba(74,123,183,.3);border-radius:14px;padding:.9rem 1.1rem;margin-bottom:.65rem;cursor:pointer;transition:border-color .2s,transform .15s;}
+.eli:hover{border-color:var(--moon-gold);transform:translateX(4px);}
+.eli-t{font-family:'Fredoka One',cursive;font-size:.95rem;color:var(--moon-gold);}
+.eli-m{font-size:.72rem;color:var(--cloud-light);margin-top:.12rem;}
+.eli-chip{display:inline-block;background:var(--cloud-blue);color:#fff;border-radius:50px;padding:.1rem .6rem;font-size:.68rem;font-weight:700;margin-top:.22rem;}
+.empty{text-align:center;padding:2.5rem 1rem;color:var(--cloud-light);}
+.empty .ei{font-size:2.8rem;margin-bottom:.6rem;}
+
+/* MODAL */
+.moverlay{display:none;position:fixed;inset:0;background:rgba(5,10,30,.88);z-index:100;align-items:flex-start;justify-content:center;overflow-y:auto;padding:1.5rem;}
+.moverlay.open{display:flex;animation:fadeIn .3s ease;}
+.mbox{background:var(--deep-navy);border:1px solid rgba(74,123,183,.5);border-radius:20px;padding:1.4rem;width:100%;max-width:660px;position:relative;margin:auto;}
+.mclose{position:absolute;top:.9rem;right:1.1rem;background:none;border:none;color:var(--cloud-light);font-size:1.45rem;cursor:pointer;}
+.mclose:hover{color:var(--moon-gold);}
+
+/* MISC */
+.step-r{display:flex;gap:.9rem;align-items:flex-start;margin-bottom:.9rem;}
+.step-n{min-width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fredoka One',cursive;font-size:1rem;color:#fff;flex-shrink:0;}
+.step-t h3{font-size:.88rem;font-weight:800;color:var(--text-white);margin-bottom:.12rem;}
+.step-t p{font-size:.78rem;color:var(--cloud-light);}
+.iprompt{background:rgba(232,184,75,.12);border-left:3px solid var(--moon-gold);border-radius:0 10px 10px 0;padding:.55rem .9rem;margin-bottom:.75rem;font-size:.8rem;color:var(--text-white);font-style:italic;}
+.prayer-box{background:linear-gradient(135deg,rgba(232,184,75,.13),rgba(91,74,138,.13));border:1px solid rgba(232,184,75,.28);border-radius:14px;padding:.9rem 1.1rem;margin-top:.75rem;font-family:'Caveat',cursive;font-size:1rem;color:var(--text-white);text-align:center;line-height:1.7;}
+.acheck{display:flex;align-items:center;gap:.55rem;background:rgba(91,74,138,.22);border-radius:10px;padding:.55rem .9rem;margin:.65rem 0;font-size:.8rem;color:var(--text-white);}
+.acheck input{accent-color:var(--dove-purple);width:15px;height:15px;cursor:pointer;}
+.save-btn{background:linear-gradient(135deg,var(--teal),#4DB896);color:#fff;font-family:'Fredoka One',cursive;font-size:1.05rem;border:none;border-radius:50px;padding:.65rem 1.8rem;cursor:pointer;transition:transform .15s;box-shadow:0 4px 16px rgba(58,140,110,.4);width:100%;margin-top:.4rem;}
+.save-btn:hover{transform:translateY(-2px);}
+.new-btn{background:linear-gradient(135deg,var(--dove-purple),#7B5EA7);color:#fff;font-family:'Fredoka One',cursive;font-size:.9rem;border:none;border-radius:50px;padding:.55rem 1.4rem;cursor:pointer;margin-bottom:.75rem;box-shadow:0 4px 16px rgba(91,74,138,.35);transition:transform .15s;}
+.new-btn:hover{transform:translateY(-2px);}
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(80px);background:var(--teal);color:#fff;font-family:'Fredoka One',cursive;font-size:.95rem;padding:.6rem 1.7rem;border-radius:50px;z-index:999;transition:transform .3s cubic-bezier(.34,1.56,.64,1),opacity .3s;opacity:0;white-space:nowrap;}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
+.bc{background:rgba(21,37,80,.85);border:1px solid rgba(74,123,183,.3);border-radius:12px;padding:.75rem .9rem;margin-bottom:.55rem;display:flex;gap:.65rem;align-items:flex-start;}
+.be{font-size:1.45rem;flex-shrink:0;}
+.bt h3{font-weight:800;font-size:.87rem;color:var(--moon-gold);margin-bottom:.12rem;}
+.bt p{font-size:.78rem;color:var(--cloud-light);}
+.wl{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;margin:.7rem 0;}
+.wi{background:rgba(91,74,138,.3);border:1px solid rgba(91,74,138,.5);border-radius:10px;padding:.55rem;text-align:center;font-size:.78rem;font-weight:700;}
+.wi .we{font-size:1.2rem;display:block;margin-bottom:.18rem;}
+.dp-acts{padding:.7rem 1rem;border-top:1px solid #d4c89a;background:rgba(255,250,235,.6);display:flex;gap:.55rem;flex-wrap:wrap;}
+/* ── GAME STYLES */
+.game-symbol{transition:filter .2s;}
+.game-symbol:hover{filter:brightness(1.35) drop-shadow(0 0 8px rgba(255,215,0,.7));}
+.game-symbol.found .glow-ring{display:none;}
+.game-symbol.found{opacity:.55;cursor:default;pointer-events:none;}
+.game-found-chip{display:inline-flex;align-items:center;gap:.35rem;background:rgba(74,123,183,.25);border:1px solid rgba(74,123,183,.45);border-radius:50px;padding:.25rem .75rem;font-size:.78rem;font-weight:700;color:var(--text-white);animation:fadeIn .3s ease;}
+.game-found-chip.chip-done{background:rgba(58,140,110,.3);border-color:var(--teal);}
+#game-clue-panel{transition:all .3s;}
+/* sub-nav */
+.gsubbtn{background:transparent;border:none;color:var(--cloud-light);font-family:'Nunito';font-weight:700;font-size:.82rem;border-radius:50px;padding:.42rem 1.05rem;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.gsubbtn.active{background:var(--dove-purple);color:#fff;box-shadow:0 2px 10px rgba(91,74,138,.4);}
+/* symbol library */
+.sym-cat-chip{background:rgba(74,123,183,.18);border:1px solid rgba(74,123,183,.35);color:var(--cloud-light);border-radius:50px;padding:.28rem .8rem;font-size:.76rem;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.sym-cat-chip.active,.sym-cat-chip:hover{background:var(--cloud-blue);color:#fff;border-color:var(--cloud-blue);}
+.sym-card{background:rgba(14,29,64,.8);border:1px solid rgba(74,123,183,.25);border-radius:14px;padding:.9rem 1rem;margin-bottom:.6rem;animation:fadeIn .25s ease;cursor:pointer;transition:border-color .2s;}
+.sym-card:hover{border-color:var(--moon-gold);}
+.sym-card-head{display:flex;align-items:center;gap:.6rem;margin-bottom:0;}
+.sym-card-emoji{font-size:1.65rem;line-height:1;flex-shrink:0;}
+.sym-card-name{font-family:'Fredoka One',cursive;font-size:.98rem;color:var(--moon-gold);}
+.sym-card-cat{font-size:.68rem;font-weight:700;color:var(--cloud-light);background:rgba(74,123,183,.2);border-radius:50px;padding:.1rem .55rem;margin-left:.2rem;}
+.sym-card-meanings{font-size:.8rem;color:var(--cloud-light);margin:.28rem 0 0 2.3rem;line-height:1.55;}
+.sym-card-body{display:none;margin-top:.75rem;border-top:1px solid rgba(74,123,183,.2);padding-top:.75rem;}
+.sym-card-body.open{display:block;animation:fadeIn .25s ease;}
+.sym-body-row{margin-bottom:.55rem;}
+.sym-body-label{font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.15rem;}
+.sym-body-text{font-size:.82rem;line-height:1.65;color:var(--text-white);}
+.sym-bible{font-family:'Caveat',cursive;font-size:.95rem;color:var(--text-white);background:rgba(232,184,75,.1);border-left:3px solid var(--moon-gold);padding:.35rem .65rem;border-radius:0 8px 8px 0;line-height:1.6;}
+.sym-reflect{background:rgba(91,74,138,.28);border-radius:10px;padding:.55rem .8rem;font-size:.82rem;color:var(--text-white);line-height:1.6;}
+.sym-send-btn{background:rgba(58,140,110,.3);border:1px solid var(--teal);color:#fff;border-radius:8px;padding:.28rem .85rem;font-size:.75rem;font-family:'Nunito';font-weight:700;cursor:pointer;margin-top:.55rem;transition:background .2s;}
+.sym-send-btn:hover{background:var(--teal);}
+.sym-no-results{text-align:center;padding:2rem;color:var(--cloud-light);font-style:italic;font-size:.9rem;}
+/* custom symbol creator */
+.custom-creator{background:linear-gradient(135deg,rgba(91,74,138,.25),rgba(74,123,183,.15));border:1.5px solid rgba(91,74,138,.5);border-radius:16px;padding:1.1rem;margin-bottom:.9rem;}
+.custom-sym-card{border-color:rgba(91,74,138,.5) !important;}
+.cfl{display:block;font-size:.7rem;font-weight:800;color:var(--cloud-light);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.25rem;}
+.cfinput{width:100%;background:rgba(14,29,64,.7);border:1.5px solid rgba(74,123,183,.4);border-radius:10px;padding:.45rem .75rem;color:var(--text-white);font-family:'Nunito';font-size:.83rem;outline:none;resize:vertical;transition:border-color .2s;}
+.cfinput:focus{border-color:var(--moon-gold);}
+
+
+@media(max-width:520px){.dp-grid{grid-template-columns:1fr;}.dp-col:first-child{border-right:none;border-bottom:1px solid #d4c89a;}.wl{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<canvas id="starfield"></canvas>
+
+<!-- COVER -->
+<div id="cover" class="screen active">
+  <div class="moon"></div>
+  <div class="sparkle" style="top:82px;left:55px;font-size:1.3rem;animation-delay:.2s;">⭐</div>
+  <div class="sparkle" style="top:135px;right:110px;font-size:.9rem;animation-delay:.9s;">✨</div>
+  <div class="sparkle" style="top:215px;left:28px;font-size:.78rem;animation-delay:1.4s;">⭐</div>
+  <div class="sparkle" style="bottom:230px;right:36px;font-size:1.1rem;animation-delay:.5s;">✨</div>
+  <div class="cover-inner">
+    <h1 class="ctitle">
+      <span class="l1">DREAM &amp; VISION</span>
+      <span class="l2">Adventures</span>
+      <span class="l3">WITH GOD</span>
+    </h1>
+    <p style="font-size:.88rem;color:var(--cloud-light);font-weight:600;letter-spacing:.04em;margin:.55rem 0 .9rem;">A Dream Detective Journal for Kids ✦ Dove Expressions</p>
+    <div class="verse-band">"Your sons and daughters will prophesy,<br>your young men will see visions..."<span class="verse-ref">— Acts 2:17</span></div>
+    <div class="name-field">
+      <label>This journal belongs to:</label>
+      <input type="text" id="kidName" placeholder="Write your name here..." maxlength="40">
+    </div>
+    <button class="btn-primary" onclick="startJournal()">✦ Start My Adventures ✦</button>
+  </div>
+</div>
+
+<!-- HUB -->
+<div id="hub" class="screen">
+  <div class="hub-header">
+    <h1 id="hubGreet">✨ My Dream Journal ✨</h1>
+    <p>Your entries save automatically — they'll be here when you return! ✦</p>
+  </div>
+  <div class="nav-tabs">
+    <button class="tab-btn active"  onclick="showTab('t-learn')">📖 Learn</button>
+    <button class="tab-btn"         onclick="showTab('t-new')">✍️ New Entry</button>
+    <button class="tab-btn"         onclick="showTab('t-det')">🔍 Detective</button>
+    <button class="tab-btn"         onclick="showTab('t-scr')">📜 Scripture</button>
+    <button class="tab-btn"         onclick="showTab('t-log')">📋 Log</button>
+    <button class="tab-btn"         onclick="showTab('t-ent')">🌙 My Dreams</button>
+    <button class="tab-btn"         onclick="showTab('t-game');initGame();">🎮 Dream Game</button>
+  </div>
+
+  <!-- LEARN -->
+  <div id="t-learn" class="tab-content active">
+    <div class="card">
+      <div class="band band-purple">🌙 What Is a Dream or Vision?</div>
+      <div class="bc"><div class="be">😴</div><div class="bt"><h3>Dreams — while you SLEEP</h3><p>While your body rests, God can show you things in your mind like a movie only you can see.</p></div></div>
+      <div class="bc"><div class="be">👁️</div><div class="bt"><h3>Visions — while you're AWAKE</h3><p>Sometimes God shows pictures in your mind while you pray, worship, or think about Him.</p></div></div>
+      <p style="text-align:center;margin-top:.7rem;font-weight:800;color:var(--moon-gold);">Both can be messages from God! 🕊️</p>
+    </div>
+    <div class="card">
+      <div class="band band-gold">⭐ Acts 2:17</div>
+      <div style="text-align:center;padding:.3rem 0 .8rem;">
+        <div style="font-family:'Caveat',cursive;font-size:1.2rem;line-height:1.7;margin-bottom:.45rem;">"Your sons and daughters will prophesy,<br>your young men will see visions,<br>your old men will dream dreams."</div>
+        <div style="color:var(--moon-gold);font-weight:800;font-size:.85rem;margin-bottom:.9rem;">— Acts 2:17</div>
+        <div style="background:rgba(74,123,183,.18);border-radius:12px;padding:.7rem;">
+          <p style="font-weight:700;margin-bottom:.45rem;font-size:.87rem;">Did God show you something?</p>
+          <div style="display:flex;gap:1.1rem;justify-content:center;flex-wrap:wrap;">
+            <label style="display:flex;align-items:center;gap:.32rem;cursor:pointer;font-weight:700;font-size:.85rem;"><input type="checkbox" style="accent-color:var(--cloud-blue);width:14px;height:14px;"> 😴 Dream</label>
+            <label style="display:flex;align-items:center;gap:.32rem;cursor:pointer;font-weight:700;font-size:.85rem;"><input type="checkbox" style="accent-color:var(--dove-purple);width:14px;height:14px;"> 👁️ Vision</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="band band-purple">👁️ What Is a Vision?</div>
+      <p style="margin-bottom:.7rem;font-size:.88rem;">God shows pictures when you are <strong style="color:var(--text-white);">awake</strong> — like a quick movie only YOU can see!</p>
+      <p style="font-weight:800;color:var(--moon-gold);margin-bottom:.45rem;font-size:.88rem;">A vision might happen...</p>
+      <div class="wl"><div class="wi"><span class="we">🙏</span>While praying</div><div class="wi"><span class="we">💭</span>Thinking of God</div><div class="wi"><span class="we">📖</span>Reading the Bible</div><div class="wi"><span class="we">🎵</span>Worshipping</div></div>
+    </div>
+    <div class="card">
+      <div class="band band-blue">📖 Bible Dream Heroes</div>
+      <div class="bc"><div class="be">👑</div><div class="bt"><h3>Joseph — Genesis 37:5</h3><p>Joseph had dreams even as a kid! God showed him his future through those dreams.</p></div></div>
+      <div class="bc"><div class="be">🦁</div><div class="bt"><h3>Daniel — Daniel 1:17</h3><p>Daniel trusted God to help him understand dreams and visions. God gave him amazing wisdom!</p></div></div>
+      <div class="bc"><div class="be">🐟</div><div class="bt"><h3>Peter — Acts 10:9–11</h3><p>Peter saw a vision from God while wide awake and praying. God spoke something important!</p></div></div>
+    </div>
+    <div class="card">
+      <div class="band band-gold">🔍 Dream Detective Steps</div>
+      <div class="step-r"><div class="step-n" style="background:var(--cloud-blue);">1</div><div class="step-t"><h3>What did I see? 📝</h3><p>Write everything you remember — even the weird parts!</p></div></div>
+      <div class="step-r"><div class="step-n" style="background:var(--blanket-red);">2</div><div class="step-t"><h3>Dream or vision? 💭</h3><p>Did it happen while sleeping or while awake praying/worshipping?</p></div></div>
+      <div class="step-r"><div class="step-n" style="background:var(--dove-purple);">3</div><div class="step-t"><h3>Mark it up! 🖍</h3><p>Use the markup tool to circle repeating things, star what stands out, underline key words, and heart strong feelings.</p></div></div>
+      <div class="step-r"><div class="step-n" style="background:var(--teal);">4</div><div class="step-t"><h3>Find the clues 🔎</h3><p>Look for patterns and fill out your Detective Page with symbols and meanings.</p></div></div>
+      <div class="step-r"><div class="step-n" style="background:#C8960C;">5</div><div class="step-t"><h3>Ask God 🙏</h3><p>Pray first! Ask: "God, what were You saying to me?" Then write it down.</p></div></div>
+      <div class="step-r"><div class="step-n" style="background:var(--cloud-blue);">6</div><div class="step-t"><h3>Apply it 🌱</h3><p>How does it help your life? Write it out and share with a trusted adult!</p></div></div>
+    </div>
+  </div>
+
+  <!-- NEW ENTRY -->
+  <div id="t-new" class="tab-content">
+    <div class="card">
+      <div class="band band-purple">✨ What Did God Show Me?</div>
+      <div class="enav">
+        <button class="eb active" onclick="showSec(this,'s-info')">📋 Info</button>
+        <button class="eb" onclick="showSec(this,'s-write')">✍️ Write</button>
+        <button class="eb" onclick="showSec(this,'s-markup')">🖍 Mark It Up</button>
+        <button class="eb" onclick="showSec(this,'s-draw')">🎨 Draw</button>
+        <button class="eb" onclick="showSec(this,'s-q')">🤔 Questions</button>
+        <button class="eb" onclick="showSec(this,'s-mean')">💡 Meaning</button>
+        <button class="eb" onclick="showSec(this,'s-apply')">🌱 Apply</button>
+      </div>
+
+      <!-- INFO -->
+      <div id="s-info" class="stab active">
+        <div class="ff"><label>Date</label><input type="text" id="e-date" placeholder="Today's date..."></div>
+        <div class="ff"><label>Time I woke up</label><input type="text" id="e-time" placeholder="e.g. 7:30am"></div>
+        <div class="ff"><label>Title / Name 🎬</label><input type="text" id="e-title" placeholder="Give it a movie-style name..."></div>
+        <div class="ff"><label>Was this a...</label><div id="showType"><span class="chip" onclick="selChip(this,'showType')">😴 Dream (sleeping)</span><span class="chip" onclick="selChip(this,'showType')">👁️ Vision (awake)</span><span class="chip" onclick="selChip(this,'showType')">🤷 Not sure yet</span></div></div>
+        <div class="ff"><label>What kind was it?</label><div id="dreamKind"><span class="chip" onclick="selChip(this,'dreamKind')">🌟 About My Future</span><span class="chip" onclick="selChip(this,'dreamKind')">💪 Encouraging</span><span class="chip" onclick="selChip(this,'dreamKind')">⚠️ A Warning</span><span class="chip" onclick="selChip(this,'dreamKind')">🙏 For Someone Else</span><span class="chip" onclick="selChip(this,'dreamKind')">😕 Confusing</span><span class="chip" onclick="selChip(this,'dreamKind')">😨 Scary</span><span class="chip" onclick="selChip(this,'dreamKind')">🔄 Repeat</span></div></div>
+        <div class="ff"><label>In this, I was...</label><div id="involvement"><span class="chip" onclick="selChip(this,'involvement')">⭐ The Main Character</span><span class="chip" onclick="selChip(this,'involvement')">👀 Just Watching</span><span class="chip" onclick="selChip(this,'involvement')">🤝 Partly Involved</span></div></div>
+      </div>
+
+      <!-- WRITE -->
+      <div id="s-write" class="stab">
+        <div class="iprompt">Write everything you remember — people, places, feelings, colors, animals, anything weird! More detail = better clues. 🌙</div>
+        <div class="ff"><label>My Dream / Vision</label><textarea id="e-story" rows="10" placeholder="Start writing here..."></textarea></div>
+        <div class="ff"><label>More space (if needed)</label><textarea id="e-story2" rows="4" placeholder="Continue here..."></textarea></div>
+        <p style="font-size:.72rem;color:var(--cloud-light);margin-top:.3rem;">✦ When done, tap "🖍 Mark It Up" to highlight what stands out!</p>
+      </div>
+
+      <!-- MARKUP -->
+      <div id="s-markup" class="stab">
+        <p style="font-size:.75rem;color:var(--cloud-light);margin-bottom:.5rem;font-style:italic;">Select text below, then tap a tool to mark it. This is how you circle, star, underline, or heart things in your dream!</p>
+        <div class="markup-bar">
+          <button class="mb" style="background:rgba(255,80,80,.3);border-color:#ff5050;color:#fff;" onclick="applyMark('circle')">⭕ Circle — Repeating</button>
+          <button class="mb" style="background:rgba(255,215,0,.28);border-color:var(--star-bright);color:#fff;" onclick="applyMark('star')">⭐ Star — Stands out</button>
+          <button class="mb" style="background:rgba(74,123,183,.35);border-color:var(--cloud-blue);color:#fff;" onclick="applyMark('underline')">💬 Underline — Key words</button>
+          <button class="mb" style="background:rgba(255,100,150,.28);border-color:#ff6496;color:#fff;" onclick="applyMark('heart')">❤️ Heart — Feelings</button>
+          <button class="mb" style="background:rgba(74,123,183,.12);border-color:rgba(74,123,183,.4);color:var(--cloud-light);margin-left:auto;" onclick="clearMarks()">✕ Clear</button>
+        </div>
+        <div id="markupDisplay" contenteditable="true" spellcheck="false"></div>
+        <p style="font-size:.7rem;color:var(--cloud-light);margin-top:.35rem;">Marks are saved with your entry so you can see them later.</p>
+        <div class="ff" style="margin-top:.7rem;"><label>Notes from my markups — what I noticed</label><textarea id="e-mnotes" rows="3" placeholder="What did you notice when you marked things up?"></textarea></div>
+      </div>
+
+      <!-- DRAW -->
+      <div id="s-draw" class="stab">
+        <p style="font-size:.8rem;color:var(--cloud-light);margin-bottom:.6rem;">Draw what you saw! 🖍️</p>
+        <div class="draw-area">
+          <div class="dtoolbar">
+            <div class="cdot active" style="background:#FFD700;" data-color="#FFD700" onclick="setClr(this,'main')"></div>
+            <div class="cdot" style="background:#4A7BB7;" data-color="#4A7BB7" onclick="setClr(this,'main')"></div>
+            <div class="cdot" style="background:#B83A52;" data-color="#B83A52" onclick="setClr(this,'main')"></div>
+            <div class="cdot" style="background:#5B4A8A;" data-color="#5B4A8A" onclick="setClr(this,'main')"></div>
+            <div class="cdot" style="background:#3A8C6E;" data-color="#3A8C6E" onclick="setClr(this,'main')"></div>
+            <div class="cdot" style="background:#F0F6FF;" data-color="#F0F6FF" onclick="setClr(this,'main')"></div>
+            <div class="cdot" style="background:#FF8C42;" data-color="#FF8C42" onclick="setClr(this,'main')"></div>
+            <button class="sbtn active" onclick="setSz(this,3,'main')">S</button>
+            <button class="sbtn" onclick="setSz(this,8,'main')">M</button>
+            <button class="sbtn" onclick="setSz(this,18,'main')">L</button>
+            <button class="ebtn" id="mainEraseBtn" onclick="toggleErase('main',this)">◻ Erase</button>
+            <button class="cbtn" onclick="clrCanvas('main')">🗑 Clear</button>
+          </div>
+          <canvas id="mainCanvas" class="draw-canvas" height="290"></canvas>
+        </div>
+      </div>
+
+      <!-- QUESTIONS -->
+      <div id="s-q" class="stab">
+        <div id="qlist"></div>
+      </div>
+
+      <!-- MEANING -->
+      <div id="s-mean" class="stab">
+        <div class="iprompt">PRAY first before writing! Ask God: "What were You saying to me?" Then write what you sense. 🙏</div>
+        <div class="ff"><label>My best idea of what God might be saying...</label><textarea id="e-meaning" rows="6" placeholder="Write what you think this means..."></textarea></div>
+        <div class="acheck"><input type="checkbox" id="adultHelp"><label for="adultHelp">🙏 An adult helped me understand this</label></div>
+        <div class="ff"><label>What I think God wants me to know</label><textarea id="e-gmsg" rows="4" placeholder="Write the main message here..."></textarea></div>
+      </div>
+
+      <!-- APPLY -->
+      <div id="s-apply" class="stab">
+        <div class="ff"><label>This dream/vision is about...</label><textarea id="a1" rows="3" placeholder="Summarize it..."></textarea></div>
+        <div class="ff"><label>Because of this, I want to...</label><textarea id="a2" rows="3" placeholder="What action or change?"></textarea></div>
+        <div class="ff"><label>I am going to pray about...</label><textarea id="a3" rows="3" placeholder="What will you bring to God?"></textarea></div>
+        <div class="ff"><label>I will share this with...</label><textarea id="a4" rows="2" placeholder="Who will you tell?"></textarea></div>
+        <div class="prayer-box">"God, thank You for speaking to me in dreams and visions.<br>Help me understand what You are saying and give me<br>the courage to follow Your voice.<br>In Jesus' name, Amen." 🕊️</div>
+        <button class="save-btn" onclick="saveEntry()">💾 Save This Dream Entry</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DETECTIVE -->
+  <div id="t-det" class="tab-content">
+    <div style="display:flex;gap:.55rem;align-items:center;flex-wrap:wrap;margin-bottom:.8rem;">
+      <button class="new-btn" onclick="newDp()" style="margin:0;">✦ New Detective Page</button>
+      <select id="dpSel" style="background:rgba(14,29,64,.8);border:1px solid rgba(74,123,183,.4);border-radius:8px;color:var(--text-white);padding:.32rem .65rem;font-size:.78rem;outline:none;" onchange="loadDp(this.value)">
+        <option value="">— saved pages —</option>
+      </select>
+    </div>
+    <div class="dp-wrap" id="dpWrap">
+      <div class="dp-hdr"><h2>🔍 Dream &amp; Vision Detective Page 🕊️</h2></div>
+      <div class="dp-title-row">
+        <label>Dream/Vision:</label>
+        <input type="text" id="dp-t" placeholder='"Write the name of your dream here..."'>
+      </div>
+      <div class="dp-grid">
+        <!-- LEFT -->
+        <div class="dp-col">
+          <div class="dp-scene">
+            <div class="dp-scene-lbl">🎨 Draw Your Scene Here</div>
+            <div class="draw-area" style="border:none;border-radius:0;">
+              <div class="dtoolbar" style="background:rgba(255,250,235,.7);border-color:#d4c89a;">
+                <div class="cdot active" style="background:#FFD700;" data-color="#FFD700" onclick="setClr(this,'dp')"></div>
+                <div class="cdot" style="background:#1A3A8A;" data-color="#1A3A8A" onclick="setClr(this,'dp')"></div>
+                <div class="cdot" style="background:#8B2A2A;" data-color="#8B2A2A" onclick="setClr(this,'dp')"></div>
+                <div class="cdot" style="background:#2A6E3A;" data-color="#2A6E3A" onclick="setClr(this,'dp')"></div>
+                <div class="cdot" style="background:#C8960C;" data-color="#C8960C" onclick="setClr(this,'dp')"></div>
+                <div class="cdot" style="background:#4A2A7A;" data-color="#4A2A7A" onclick="setClr(this,'dp')"></div>
+                <div class="cdot" style="background:#1A1A2E;" data-color="#1A1A2E" onclick="setClr(this,'dp')"></div>
+                <button class="sbtn active" onclick="setSz(this,3,'dp')">S</button>
+                <button class="sbtn" onclick="setSz(this,8,'dp')">M</button>
+                <button class="sbtn" onclick="setSz(this,16,'dp')">L</button>
+                <button class="ebtn" id="dpEraseBtn" onclick="toggleErase('dp',this)">◻ Erase</button>
+                <button class="cbtn" onclick="clrCanvas('dp')">🗑</button>
+              </div>
+              <canvas id="dpCanvas" class="draw-canvas" height="210" style="background:#FFF8E8;"></canvas>
+            </div>
+          </div>
+          <div class="dps">
+            <h3>🔎 Dream Clues</h3>
+            <div class="clue-row"><span>🐾 Animal:</span><input type="text" id="dp-animal" placeholder="e.g. Lion"></div>
+            <div class="clue-row"><span>🏠 Place:</span><input type="text" id="dp-place" placeholder="e.g. My House"></div>
+            <div class="clue-row"><span>💛 Feeling:</span><input type="text" id="dp-feel" placeholder="e.g. Safe + Brave"></div>
+            <div class="clue-row"><span>🎨 Colors:</span><input type="text" id="dp-cols" placeholder="e.g. Gold, Blue"></div>
+            <div class="clue-row"><span>👤 Person:</span><input type="text" id="dp-person" placeholder="who appeared?"></div>
+            <div class="clue-row"><span>🔁 Repeat:</span><input type="text" id="dp-repeat" placeholder="what repeated?"></div>
+          </div>
+          <div class="dps">
+            <h3>🙏 Ask God</h3>
+            <div class="ask-item">"God, what were You showing me?"</div>
+            <div class="ask-item">"Are You telling me to trust You?"</div>
+            <div class="ask-item">"Is there fear I need to give to You?"</div>
+            <textarea id="dp-ask" style="width:100%;background:rgba(255,250,235,.45);border:none;outline:none;font-family:'Nunito';font-size:.78rem;color:#1A1A2E;resize:vertical;min-height:48px;border-radius:6px;padding:.35rem;" placeholder="Write what you sense God saying back..."></textarea>
+          </div>
+          <div class="verse-box">
+            <div style="font-weight:800;font-size:.78rem;color:#2E4A8A;margin-bottom:.35rem;">📖 Scripture That Fits</div>
+            <textarea id="dp-verse" style="width:100%;background:transparent;border:none;outline:none;font-family:'Caveat',cursive;font-size:.9rem;color:#2E4A8A;resize:vertical;min-height:46px;" placeholder='e.g. Psalm 46:1 — "God is our refuge..."'></textarea>
+            <button onclick="showTab('t-scr')" style="background:rgba(46,74,138,.12);border:1px dashed #8B7A50;border-radius:6px;padding:.18rem .65rem;font-size:.7rem;cursor:pointer;color:#2E4A8A;font-weight:700;margin-top:.25rem;">🔍 Look up a verse →</button>
+          </div>
+        </div>
+        <!-- RIGHT -->
+        <div class="dp-col">
+          <div class="dps">
+            <h3>✦ Symbol Meanings</h3>
+            <p style="font-size:.72rem;color:#5A4A20;margin-bottom:.5rem;line-height:1.55;">Write a symbol you saw in your dream — it can be a word, an emoji, or anything! Then write what you think it might mean. <span style="font-weight:800;">You can type any emoji or just use words.</span></p>
+            <!-- Column headers -->
+            <div style="display:grid;grid-template-columns:90px 1fr 22px;gap:.35rem;margin-bottom:.3rem;padding:0 .1rem;">
+              <span style="font-size:.65rem;font-weight:800;color:#8B7A50;text-transform:uppercase;letter-spacing:.04em;">Symbol I saw</span>
+              <span style="font-size:.65rem;font-weight:800;color:#8B7A50;text-transform:uppercase;letter-spacing:.04em;">What it might mean</span>
+              <span></span>
+            </div>
+            <div id="symRows"></div>
+            <button class="add-sym" onclick="addSymRow()">+ Add another symbol</button>
+          </div>
+          <div class="dps">
+            <h3>💬 What God Might Be Saying</h3>
+            <textarea id="dp-godsay" style="width:100%;background:transparent;border:none;outline:none;font-family:'Nunito';font-size:.8rem;color:#1A1A2E;resize:vertical;min-height:95px;line-height:1.7;" placeholder="• I am protecting you.&#10;• Be brave — I am with you.&#10;• Don't be afraid!"></textarea>
+          </div>
+          <div class="dps">
+            <h3>🌱 How I Will Apply This</h3>
+            <textarea id="dp-apply" style="width:100%;background:transparent;border:none;outline:none;font-family:'Nunito';font-size:.8rem;color:#1A1A2E;resize:vertical;min-height:65px;line-height:1.7;" placeholder="How does this dream/vision apply to your real life?"></textarea>
+          </div>
+          <div class="dps">
+            <h3>🙏 My Prayer</h3>
+            <textarea id="dp-pray" style="width:100%;background:transparent;border:none;outline:none;font-family:'Caveat',cursive;font-size:.92rem;color:#1A1A2E;resize:vertical;min-height:55px;line-height:1.7;" placeholder="Write a short prayer about this dream..."></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="dp-acts">
+        <button class="save-btn" onclick="saveDp()" style="max-width:280px;margin:0;">💾 Save Detective Page</button>
+        <button onclick="delDp()" style="background:rgba(184,58,82,.3);border:1px solid var(--blanket-red);color:#fff;border-radius:50px;padding:.45rem 1.1rem;cursor:pointer;font-size:.82rem;font-family:'Nunito';font-weight:700;">🗑 Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTURE -->
+  <div id="t-scr" class="tab-content">
+    <div class="card">
+      <div class="band band-gold">📜 Scripture Lookup — NLT</div>
+      <p style="font-size:.8rem;color:var(--cloud-light);margin-bottom:.7rem;">Type a <strong style="color:var(--text-white);">reference</strong> like <em>Psalm 23:1</em> or a <strong style="color:var(--text-white);">keyword</strong> like <em>courage</em>, <em>dreams</em>, or <em>protection</em>. Tap any result to expand the full chapter!</p>
+      <div class="scr-bar">
+        <input type="text" id="scrQ" placeholder='Try "fear", "dreams", "John 3:16"...' onkeydown="if(event.key==='Enter')lookupScr()">
+        <button onclick="lookupScr()">Search 🔍</button>
+      </div>
+
+      <p style="font-size:.75rem;color:var(--cloud-light);margin-bottom:.4rem;font-weight:700;">🏷 Search by topic:</p>
+      <div class="qv" style="margin-bottom:.9rem;">
+        <span class="qvc" onclick="qvKeyword('dreams')">🌙 dreams</span>
+        <span class="qvc" onclick="qvKeyword('visions')">👁️ visions</span>
+        <span class="qvc" onclick="qvKeyword('fear')">😨 fear</span>
+        <span class="qvc" onclick="qvKeyword('protection')">🛡 protection</span>
+        <span class="qvc" onclick="qvKeyword('courage')">💪 courage</span>
+        <span class="qvc" onclick="qvKeyword('peace')">☮️ peace</span>
+        <span class="qvc" onclick="qvKeyword('voice')">🔊 hearing God</span>
+        <span class="qvc" onclick="qvKeyword('wisdom')">💡 wisdom</span>
+        <span class="qvc" onclick="qvKeyword('future')">🌟 future &amp; hope</span>
+        <span class="qvc" onclick="qvKeyword('faith')">🙏 faith</span>
+        <span class="qvc" onclick="qvKeyword('angel')">👼 angels</span>
+        <span class="qvc" onclick="qvKeyword('known')">❤️ known by God</span>
+      </div>
+
+      <p style="font-size:.75rem;color:var(--cloud-light);margin-bottom:.4rem;font-weight:700;">📌 Verse picks:</p>
+      <div class="qv">
+        <span class="qvc" onclick="qv('Jeremiah 29:11')">Jeremiah 29:11</span>
+        <span class="qvc" onclick="qv('Joel 2:28')">Joel 2:28</span>
+        <span class="qvc" onclick="qv('Numbers 12:6')">Numbers 12:6</span>
+        <span class="qvc" onclick="qv('Job 33:15')">Job 33:15</span>
+        <span class="qvc" onclick="qv('Psalm 46:1')">Psalm 46:1</span>
+        <span class="qvc" onclick="qv('Psalm 23:4')">Psalm 23:4</span>
+        <span class="qvc" onclick="qv('Joshua 1:9')">Joshua 1:9</span>
+        <span class="qvc" onclick="qv('Isaiah 41:10')">Isaiah 41:10</span>
+        <span class="qvc" onclick="qv('2 Timothy 1:7')">2 Timothy 1:7</span>
+        <span class="qvc" onclick="qv('Daniel 2:22')">Daniel 2:22</span>
+        <span class="qvc" onclick="qv('Acts 2:17')">Acts 2:17</span>
+        <span class="qvc" onclick="qv('Habakkuk 2:2')">Habakkuk 2:2</span>
+        <span class="qvc" onclick="qv('John 10:27')">John 10:27</span>
+        <span class="qvc" onclick="qv('Ephesians 1:17')">Ephesians 1:17</span>
+        <span class="qvc" onclick="qv('Psalm 139:1')">Psalm 139:1</span>
+        <span class="qvc" onclick="qv('Philippians 4:6')">Philippians 4:6</span>
+      </div>
+      <div id="scrRes" style="margin-top:.9rem;"></div>
+    </div>
+  </div>
+
+  <!-- LOG -->
+  <div id="t-log" class="tab-content">
+    <div class="card">
+      <div class="band band-blue">📋 My Dream Log</div>
+      <p style="font-size:.78rem;color:var(--cloud-light);margin-bottom:.65rem;">✦ All entries save in your browser and will still be here when you come back.</p>
+      <div style="overflow-x:auto;">
+        <table class="logt">
+          <thead><tr><th>#</th><th>Date</th><th>Name</th><th>Type</th><th>Figured Out?</th></tr></thead>
+          <tbody id="logBody"><tr><td colspan="5" style="text-align:center;color:var(--cloud-light);padding:1.2rem;">No entries yet ✨</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- MY DREAMS -->
+  <div id="t-ent" class="tab-content">
+    <button class="new-btn" onclick="showTab('t-new');resetEntry();">✦ Write a New Entry</button>
+    <div id="entList"></div>
+  </div>
+
+  <!-- DREAM DETECTIVE GAME -->
+  <div id="t-game" class="tab-content">
+    <!-- Game sub-nav -->
+    <div style="display:flex;gap:.45rem;margin-bottom:.85rem;background:rgba(21,37,80,.7);border-radius:50px;padding:.32rem;width:fit-content;max-width:100%;">
+      <button id="gsubnav-play" class="gsubbtn active" onclick="switchGameView('play')">🎮 Play Game</button>
+      <button id="gsubnav-lib" class="gsubbtn" onclick="switchGameView('lib')">📚 Symbol Library</button>
+    </div>
+
+    <!-- PLAY GAME view -->
+    <div id="gview-play">
+    <div class="card" id="game-intro-card">
+      <div class="band band-purple">🎮 Dream Detective Game</div>
+      <p style="font-size:.88rem;color:var(--cloud-light);line-height:1.7;margin-bottom:.9rem;">
+        Someone had a wild dream about being in <strong style="color:var(--text-white);">OUTER SPACE</strong>! 🚀<br>
+        Your job: tap each glowing symbol in the dream scene to discover what it might mean.<br>
+        <span style="color:var(--moon-gold);font-weight:700;">Find all 6 clues to unlock the final message!</span>
+      </p>
+      <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:1rem;">
+        <div id="game-progress-bar" style="flex:1;min-width:160px;background:rgba(74,123,183,.2);border-radius:50px;height:12px;overflow:hidden;">
+          <div id="game-progress-fill" style="height:100%;width:0%;background:linear-gradient(90deg,var(--cloud-blue),var(--moon-gold));border-radius:50px;transition:width .5s ease;"></div>
+        </div>
+        <span id="game-progress-label" style="font-family:'Fredoka One',cursive;font-size:.85rem;color:var(--moon-gold);white-space:nowrap;">0 / 6 clues</span>
+      </div>
+
+      <!-- SCENE SVG -->
+      <div style="position:relative;margin-bottom:1rem;">
+        <svg id="game-scene" viewBox="0 0 600 340" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:14px;cursor:default;display:block;background:linear-gradient(180deg,#04091f 0%,#0a1a4a 55%,#1a3a6e 100%);">
+
+          <!-- Stars background -->
+          <circle cx="30" cy="20" r="1.2" fill="white" opacity=".7"/>
+          <circle cx="80" cy="45" r=".8" fill="white" opacity=".5"/>
+          <circle cx="140" cy="15" r="1.5" fill="white" opacity=".8"/>
+          <circle cx="200" cy="35" r=".9" fill="white" opacity=".6"/>
+          <circle cx="260" cy="10" r="1.1" fill="white" opacity=".7"/>
+          <circle cx="320" cy="30" r=".8" fill="white" opacity=".5"/>
+          <circle cx="370" cy="12" r="1.3" fill="white" opacity=".75"/>
+          <circle cx="430" cy="40" r=".7" fill="white" opacity=".55"/>
+          <circle cx="490" cy="18" r="1.4" fill="white" opacity=".8"/>
+          <circle cx="550" cy="28" r=".9" fill="white" opacity=".6"/>
+          <circle cx="55" cy="70" r=".7" fill="white" opacity=".4"/>
+          <circle cx="110" cy="85" r="1" fill="white" opacity=".5"/>
+          <circle cx="165" cy="60" r=".8" fill="white" opacity=".45"/>
+          <circle cx="240" cy="75" r=".9" fill="white" opacity=".5"/>
+          <circle cx="415" cy="65" r="1.1" fill="white" opacity=".55"/>
+          <circle cx="520" cy="58" r=".7" fill="white" opacity=".5"/>
+          <circle cx="575" cy="75" r="1" fill="white" opacity=".4"/>
+
+          <!-- Planet 1 (big, left-back) -->
+          <g id="gs-planet1" class="game-symbol" onclick="clueClick('planet1')" style="cursor:pointer;">
+            <circle cx="95" cy="95" r="38" fill="#5B4A8A" opacity=".85"/>
+            <ellipse cx="95" cy="95" rx="55" ry="9" fill="none" stroke="#8B6FBE" stroke-width="3" opacity=".7"/>
+            <circle cx="95" cy="95" r="38" fill="none" stroke="#7B5EA7" stroke-width="1.5" opacity=".5"/>
+            <text x="95" y="100" text-anchor="middle" font-size="22" class="game-sym-emoji">🪐</text>
+            <circle cx="95" cy="95" r="40" fill="none" stroke="#E8B84B" stroke-width="2.5" opacity="0" class="glow-ring">
+              <animate attributeName="opacity" values="0;.8;0" dur="2s" repeatCount="indefinite"/>
+              <animate attributeName="r" values="40;46;40" dur="2s" repeatCount="indefinite"/>
+            </circle>
+          </g>
+
+          <!-- Moon (top right) -->
+          <g id="gs-moon" class="game-symbol" onclick="clueClick('moon')" style="cursor:pointer;">
+            <path d="M480,30 Q510,18 530,38 Q510,28 495,50 Q475,45 480,30Z" fill="#E8B84B" opacity=".9"/>
+            <circle cx="510" cy="35" r="22" fill="#E8B84B"/>
+            <circle cx="522" cy="26" r="16" fill="#0D1B3E"/>
+            <circle cx="510" cy="35" r="23" fill="none" stroke="#FFD700" stroke-width="1.5" opacity=".5"/>
+            <circle cx="510" cy="35" r="25" fill="none" stroke="#E8B84B" stroke-width="2" opacity="0" class="glow-ring">
+              <animate attributeName="opacity" values="0;.9;0" dur="1.8s" repeatCount="indefinite"/>
+              <animate attributeName="r" values="25;31;25" dur="1.8s" repeatCount="indefinite"/>
+            </circle>
+          </g>
+
+          <!-- Sun (top center) -->
+          <g id="gs-sun" class="game-symbol" onclick="clueClick('sun')" style="cursor:pointer;">
+            <circle cx="300" cy="58" r="28" fill="#FF8C42" opacity=".95"/>
+            <circle cx="300" cy="58" r="22" fill="#FFD700"/>
+            <!-- rays -->
+            <line x1="300" y1="24" x2="300" y2="18" stroke="#FFD700" stroke-width="3" stroke-linecap="round"/>
+            <line x1="300" y1="92" x2="300" y2="98" stroke="#FFD700" stroke-width="3" stroke-linecap="round"/>
+            <line x1="266" y1="58" x2="260" y2="58" stroke="#FFD700" stroke-width="3" stroke-linecap="round"/>
+            <line x1="334" y1="58" x2="340" y2="58" stroke="#FFD700" stroke-width="3" stroke-linecap="round"/>
+            <line x1="276" y1="34" x2="272" y2="30" stroke="#FFD700" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="324" y1="34" x2="328" y2="30" stroke="#FFD700" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="276" y1="82" x2="272" y2="86" stroke="#FFD700" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="324" y1="82" x2="328" y2="86" stroke="#FFD700" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="300" cy="58" r="30" fill="none" stroke="#FFD700" stroke-width="2" opacity="0" class="glow-ring">
+              <animate attributeName="opacity" values="0;.8;0" dur="1.6s" repeatCount="indefinite"/>
+              <animate attributeName="r" values="30;36;30" dur="1.6s" repeatCount="indefinite"/>
+            </circle>
+          </g>
+
+          <!-- Planet 2 (small, right mid) -->
+          <g id="gs-planet2" class="game-symbol" onclick="clueClick('planet2')" style="cursor:pointer;">
+            <circle cx="490" cy="150" r="22" fill="#3A8C6E" opacity=".9"/>
+            <ellipse cx="490" cy="150" rx="32" ry="6" fill="none" stroke="#4DB896" stroke-width="2.5" opacity=".7"/>
+            <text x="490" y="156" text-anchor="middle" font-size="15" class="game-sym-emoji">🌍</text>
+            <circle cx="490" cy="150" r="24" fill="none" stroke="#4DB896" stroke-width="2" opacity="0" class="glow-ring">
+              <animate attributeName="opacity" values="0;.85;0" dur="2.2s" repeatCount="indefinite"/>
+              <animate attributeName="r" values="24;30;24" dur="2.2s" repeatCount="indefinite"/>
+            </circle>
+          </g>
+
+          <!-- Ground / asteroid surface at bottom -->
+          <ellipse cx="300" cy="330" rx="320" ry="45" fill="#1a2a3a" opacity=".9"/>
+          <ellipse cx="300" cy="326" rx="310" ry="38" fill="#243040"/>
+          <!-- craters -->
+          <ellipse cx="120" cy="318" rx="22" ry="8" fill="#1a2a3a" opacity=".7"/>
+          <ellipse cx="430" cy="322" rx="18" ry="6" fill="#1a2a3a" opacity=".6"/>
+          <ellipse cx="250" cy="328" rx="12" ry="4" fill="#1a2a3a" opacity=".5"/>
+
+          <!-- Space Rock / Asteroid (incoming, top-left area) -->
+          <g id="gs-rock" class="game-symbol" onclick="clueClick('rock')" style="cursor:pointer;">
+            <ellipse cx="170" cy="170" rx="28" ry="20" fill="#8B7355" transform="rotate(-25,170,170)"/>
+            <ellipse cx="170" cy="170" rx="28" ry="20" fill="none" stroke="#C8A87A" stroke-width="1.5" transform="rotate(-25,170,170)" opacity=".6"/>
+            <!-- craters on rock -->
+            <circle cx="162" cy="165" r="4" fill="#6B5335" opacity=".8"/>
+            <circle cx="178" cy="175" r="3" fill="#6B5335" opacity=".7"/>
+            <!-- motion lines -->
+            <line x1="148" y1="152" x2="136" y2="140" stroke="#C8A87A" stroke-width="1.5" stroke-linecap="round" opacity=".5"/>
+            <line x1="155" y1="148" x2="145" y2="138" stroke="#C8A87A" stroke-width="1" stroke-linecap="round" opacity=".4"/>
+            <line x1="162" y1="145" x2="154" y2="136" stroke="#C8A87A" stroke-width="1" stroke-linecap="round" opacity=".3"/>
+            <circle cx="170" cy="170" r="30" fill="none" stroke="#B83A52" stroke-width="2" opacity="0" class="glow-ring">
+              <animate attributeName="opacity" values="0;.8;0" dur="1.9s" repeatCount="indefinite"/>
+              <animate attributeName="r" values="30;36;30" dur="1.9s" repeatCount="indefinite"/>
+            </circle>
+          </g>
+
+          <!-- Robot character (standing, observing) -->
+          <g id="gs-robot" class="game-symbol" onclick="clueClick('robot')" style="cursor:pointer;">
+            <!-- body -->
+            <rect x="330" y="235" width="44" height="38" rx="6" fill="#4A5568" stroke="#718096" stroke-width="1.5"/>
+            <!-- chest light -->
+            <circle cx="352" cy="252" r="6" fill="#4A7BB7" opacity=".9"/>
+            <circle cx="352" cy="252" r="3" fill="#8AAED4">
+              <animate attributeName="opacity" values="1;.3;1" dur="1.5s" repeatCount="indefinite"/>
+            </circle>
+            <!-- buttons -->
+            <rect x="340" y="262" width="6" height="4" rx="1" fill="#E8B84B" opacity=".8"/>
+            <rect x="350" y="262" width="6" height="4" rx="1" fill="#B83A52" opacity=".8"/>
+            <!-- head -->
+            <rect x="334" y="210" width="36" height="28" rx="5" fill="#5A6478" stroke="#718096" stroke-width="1.5"/>
+            <!-- eyes -->
+            <rect x="340" y="218" width="9" height="7" rx="2" fill="#4A7BB7"/>
+            <rect x="355" y="218" width="9" height="7" rx="2" fill="#4A7BB7"/>
+            <circle cx="344.5" cy="221.5" r="2.5" fill="#8AAED4">
+              <animate attributeName="opacity" values="1;.2;1" dur="2s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="359.5" cy="221.5" r="2.5" fill="#8AAED4">
+              <animate attributeName="opacity" values="1;.2;1" dur="2s" begin=".3s" repeatCount="indefinite"/>
+            </circle>
+            <!-- antenna -->
+            <line x1="352" y1="210" x2="352" y2="200" stroke="#718096" stroke-width="2"/>
+            <circle cx="352" cy="197" r="4" fill="#E8B84B">
+              <animate attributeName="opacity" values="1;.4;1" dur="1.2s" repeatCount="indefinite"/>
+            </circle>
+            <!-- arms -->
+            <rect x="310" y="238" width="22" height="8" rx="4" fill="#4A5568" stroke="#718096" stroke-width="1"/>
+            <rect x="374" y="238" width="22" height="8" rx="4" fill="#4A5568" stroke="#718096" stroke-width="1"/>
+            <!-- legs -->
+            <rect x="335" y="272" width="12" height="18" rx="3" fill="#4A5568" stroke="#718096" stroke-width="1"/>
+            <rect x="357" y="272" width="12" height="18" rx="3" fill="#4A5568" stroke="#718096" stroke-width="1"/>
+            <!-- feet -->
+            <rect x="332" y="287" width="16" height="7" rx="3" fill="#3A4555"/>
+            <rect x="354" y="287" width="16" height="7" rx="3" fill="#3A4555"/>
+            <!-- glow -->
+            <rect x="328" y="208" width="50" height="68" rx="8" fill="none" stroke="#4A7BB7" stroke-width="2" opacity="0" class="glow-ring">
+              <animate attributeName="opacity" values="0;.7;0" dur="2.1s" repeatCount="indefinite"/>
+            </rect>
+          </g>
+
+          <!-- Jumping kid character -->
+          <g id="gs-jump" class="game-symbol" onclick="clueClick('jump')" style="cursor:pointer;">
+            <animateTransform attributeName="transform" type="translate" values="0,0;0,-14;0,0" dur="1.4s" repeatCount="indefinite" additive="sum"/>
+            <!-- body -->
+            <rect x="215" y="245" width="32" height="34" rx="6" fill="#4A7BB7"/>
+            <!-- head -->
+            <circle cx="231" cy="232" r="16" fill="#FBBF8C"/>
+            <!-- hair -->
+            <path d="M216,228 Q218,215 231,212 Q244,215 246,228" fill="#3B2506"/>
+            <!-- eyes -->
+            <circle cx="225" cy="231" r="3" fill="#3B2506"/>
+            <circle cx="237" cy="231" r="3" fill="#3B2506"/>
+            <!-- smile -->
+            <path d="M225,238 Q231,244 237,238" fill="none" stroke="#3B2506" stroke-width="1.5" stroke-linecap="round"/>
+            <!-- arms raised -->
+            <line x1="215" y1="255" x2="200" y2="238" stroke="#4A7BB7" stroke-width="8" stroke-linecap="round"/>
+            <line x1="247" y1="255" x2="262" y2="238" stroke="#4A7BB7" stroke-width="8" stroke-linecap="round"/>
+            <!-- legs bent (jumping) -->
+            <line x1="221" y1="279" x2="210" y2="298" stroke="#3B82C4" stroke-width="8" stroke-linecap="round"/>
+            <line x1="241" y1="279" x2="252" y2="298" stroke="#3B82C4" stroke-width="8" stroke-linecap="round"/>
+            <!-- shoes -->
+            <ellipse cx="207" cy="301" rx="9" ry="5" fill="#1A1A2E"/>
+            <ellipse cx="255" cy="301" rx="9" ry="5" fill="#1A1A2E"/>
+            <!-- glow -->
+            <circle cx="231" cy="262" r="36" fill="none" stroke="#FFD700" stroke-width="2" opacity="0" class="glow-ring">
+              <animate attributeName="opacity" values="0;.75;0" dur="1.4s" repeatCount="indefinite"/>
+              <animate attributeName="r" values="36;42;36" dur="1.4s" repeatCount="indefinite"/>
+            </circle>
+          </g>
+
+          <!-- TAP HINT label -->
+          <text x="300" y="195" text-anchor="middle" font-size="11" fill="white" opacity=".55" font-family="Nunito,sans-serif">👆 Tap the glowing symbols to find clues!</text>
+        </svg>
+
+        <!-- Discovered badge overlays -->
+        <div id="game-badges" style="position:absolute;top:6px;left:6px;display:flex;flex-wrap:wrap;gap:4px;pointer-events:none;"></div>
+      </div>
+
+      <!-- CLUE PANEL -->
+      <div id="game-clue-panel" style="display:none;background:rgba(14,29,64,.9);border:2px solid var(--moon-gold);border-radius:16px;padding:1.1rem 1.2rem;margin-bottom:1rem;animation:fadeIn .35s ease;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem;">
+          <div style="font-family:'Fredoka One',cursive;font-size:1.15rem;color:var(--moon-gold);" id="gcp-title">Symbol Name</div>
+          <button onclick="closeCluePanel()" style="background:none;border:none;color:var(--cloud-light);font-size:1.2rem;cursor:pointer;line-height:1;padding:0 .2rem;">✕</button>
+        </div>
+        <div id="gcp-emoji" style="font-size:2.5rem;margin-bottom:.5rem;"></div>
+        <div style="margin-bottom:.55rem;">
+          <span style="font-size:.7rem;font-weight:800;color:var(--cloud-blue);text-transform:uppercase;letter-spacing:.06em;">What It Could Mean</span>
+          <div id="gcp-meaning" style="font-size:.88rem;color:var(--text-white);margin-top:.2rem;line-height:1.6;"></div>
+        </div>
+        <div style="margin-bottom:.55rem;">
+          <span style="font-size:.7rem;font-weight:800;color:var(--teal);text-transform:uppercase;letter-spacing:.06em;">In Simple Words</span>
+          <div id="gcp-explain" style="font-size:.85rem;color:var(--cloud-light);margin-top:.2rem;line-height:1.6;font-style:italic;"></div>
+        </div>
+        <div id="gcp-bible-wrap" style="margin-bottom:.55rem;display:none;">
+          <span style="font-size:.7rem;font-weight:800;color:var(--moon-gold);text-transform:uppercase;letter-spacing:.06em;">Bible Connection</span>
+          <div id="gcp-bible" style="font-family:'Caveat',cursive;font-size:.98rem;color:var(--text-white);margin-top:.2rem;line-height:1.6;background:rgba(232,184,75,.1);border-left:3px solid var(--moon-gold);padding:.4rem .7rem;border-radius:0 8px 8px 0;"></div>
+        </div>
+        <div style="background:rgba(91,74,138,.3);border-radius:10px;padding:.65rem .9rem;">
+          <span style="font-size:.7rem;font-weight:800;color:var(--dove-purple);text-transform:uppercase;letter-spacing:.06em;">🤔 Think About It</span>
+          <div id="gcp-reflect" style="font-size:.85rem;color:var(--text-white);margin-top:.25rem;line-height:1.6;"></div>
+        </div>
+      </div>
+
+      <!-- FOUND CLUES LIST -->
+      <div id="game-found-wrap" style="display:none;margin-bottom:.9rem;">
+        <div style="font-family:'Fredoka One',cursive;font-size:.95rem;color:var(--cloud-blue);margin-bottom:.5rem;">🗂 Clues Found So Far:</div>
+        <div id="game-found-list" style="display:flex;flex-wrap:wrap;gap:.4rem;"></div>
+      </div>
+
+      <!-- FINAL MESSAGE (unlocked after all 6) -->
+      <div id="game-finale" style="display:none;animation:fadeIn .5s ease;">
+        <div style="background:linear-gradient(135deg,rgba(232,184,75,.18),rgba(91,74,138,.2));border:2px solid var(--moon-gold);border-radius:18px;padding:1.3rem;margin-bottom:1rem;text-align:center;">
+          <div style="font-size:2rem;margin-bottom:.4rem;">🌟🔍🌟</div>
+          <div style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--moon-gold);margin-bottom:.5rem;">You Found All the Clues!</div>
+          <div style="font-size:.88rem;color:var(--cloud-light);line-height:1.7;">Amazing work, Detective! You discovered what every symbol could mean.<br>Now it's time to <strong style="color:var(--text-white);">ask God</strong> what <em>He</em> was saying in this dream.</div>
+        </div>
+
+        <div class="card" style="margin-bottom:.8rem;">
+          <div class="band band-purple" style="font-size:.92rem;padding:.45rem .9rem;">🙏 Ask God What This Dream Means</div>
+          <div style="font-family:'Caveat',cursive;font-size:1rem;color:var(--cloud-light);margin-bottom:.7rem;line-height:1.7;">Close your eyes and pray: <em>"God, what were You saying to this person in this dream? What clues did You hide for them to find?"</em><br>Then write what comes to your heart below.</div>
+          <div class="ff">
+            <label>My answer from God 💭</label>
+            <textarea id="game-god-answer" rows="5" placeholder="Write what you feel God might be saying about this space dream..."></textarea>
+          </div>
+        </div>
+
+        <button onclick="sendGameToJournal()" style="background:linear-gradient(135deg,var(--teal),#4DB896);color:#fff;font-family:'Fredoka One',cursive;font-size:1.05rem;border:none;border-radius:50px;padding:.7rem 1.8rem;cursor:pointer;width:100%;margin-bottom:.6rem;box-shadow:0 4px 16px rgba(58,140,110,.4);transition:transform .15s;">
+          ✍️ Send Clues to My Journal Entry
+        </button>
+        <button onclick="resetGame()" style="background:rgba(74,123,183,.2);border:1px solid rgba(74,123,183,.4);color:var(--cloud-light);font-family:'Nunito';font-weight:700;font-size:.85rem;border-radius:50px;padding:.55rem 1.4rem;cursor:pointer;width:100%;transition:all .2s;">
+          🔄 Play Again
+        </button>
+      </div>
+
+    </div>
+    </div><!-- end gview-play -->
+
+    <!-- SYMBOL LIBRARY view -->
+    <div id="gview-lib" style="display:none;">
+      <div class="card">
+        <div class="band band-gold">📚 Dream Symbol Library</div>
+        <p style="font-size:.82rem;color:var(--cloud-light);line-height:1.65;margin-bottom:.85rem;">
+          See a symbol in your dream? Look it up here! Remember — <strong style="color:var(--text-white);">always ask God</strong> what <em>He</em> means by it. These are clues to help you think and pray. 🕊️
+        </p>
+        <!-- Search bar -->
+        <div class="scr-bar" style="margin-bottom:.75rem;">
+          <input type="text" id="symLibQ" placeholder='Search a symbol, e.g. "lion", "flying", "school"...' oninput="filterSymLib()">
+          <button onclick="filterSymLib()">🔍</button>
+        </div>
+        <!-- Category filter chips -->
+        <div style="display:flex;flex-wrap:wrap;gap:.38rem;margin-bottom:.9rem;" id="symCatChips">
+          <span class="sym-cat-chip active" onclick="setCat('all',this)">✨ All</span>
+          <span class="sym-cat-chip" onclick="setCat('animals',this)">🐾 Animals</span>
+          <span class="sym-cat-chip" onclick="setCat('places',this)">🏠 Places</span>
+          <span class="sym-cat-chip" onclick="setCat('people',this)">👤 People</span>
+          <span class="sym-cat-chip" onclick="setCat('actions',this)">🏃 Actions &amp; Feelings</span>
+          <span class="sym-cat-chip" onclick="setCat('objects',this)">🔑 Objects</span>
+          <span class="sym-cat-chip" onclick="setCat('cartoons',this)">🎨 Cartoon &amp; Fantasy</span>
+          <span class="sym-cat-chip" onclick="setCat('custom',this)">✏️ My Symbols</span>
+        </div>
+        <div id="symLibResults"></div>
+      </div>
+    </div><!-- end gview-lib -->
+
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="moverlay" id="modal">
+  <div class="mbox">
+    <button class="mclose" onclick="closeModal()">✕</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+// ── STARFIELD
+const sf=document.getElementById('starfield'),sctx=sf.getContext('2d');
+let stars=[];
+function initSF(){sf.width=window.innerWidth;sf.height=window.innerHeight;stars=Array.from({length:130},()=>({x:Math.random()*sf.width,y:Math.random()*sf.height,r:Math.random()*1.5+.3,sp:Math.random()*.008+.003,ph:Math.random()*Math.PI*2}));}
+function animSF(t){sctx.clearRect(0,0,sf.width,sf.height);stars.forEach(s=>{const a=.3+.7*Math.abs(Math.sin(t*s.sp+s.ph));sctx.beginPath();sctx.arc(s.x,s.y,s.r,0,Math.PI*2);sctx.fillStyle=`rgba(255,215,0,${a})`;sctx.fill();});requestAnimationFrame(animSF);}
+initSF();requestAnimationFrame(animSF);window.addEventListener('resize',initSF);
+
+// ── DATA
+let entries=JSON.parse(localStorage.getItem('dv_entries')||'[]');
+let dpages=JSON.parse(localStorage.getItem('dv_detective')||'[]');
+let kidName=localStorage.getItem('dv_name')||'';
+let curDpId=null;
+
+// ── SCREENS
+function startJournal(){const n=document.getElementById('kidName').value.trim();if(n){kidName=n;localStorage.setItem('dv_name',n);}document.getElementById('hubGreet').textContent=kidName?`✨ ${kidName}'s Dream Journal ✨`:'✨ My Dream Journal ✨';showScreen('hub');renderEntries();renderLog();fillDpSel();buildQList();}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+
+// ── TABS
+const TABS=['t-learn','t-new','t-det','t-scr','t-log','t-ent','t-game'];
+function showTab(id){document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');const i=TABS.indexOf(id);if(i>=0)document.querySelectorAll('.tab-btn')[i].classList.add('active');}
+
+// ── SECTIONS
+function showSec(btn,id){document.querySelectorAll('.stab').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.eb').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active');if(id==='s-markup')syncMarkup();}
+
+// ── CHIPS
+function selChip(el,g){document.querySelectorAll('#'+g+' .chip').forEach(c=>c.classList.remove('sel'));el.classList.add('sel');}
+
+// ── BUILD QUESTIONS
+function buildQList(){
+  const qs=[
+    ['1','How did this make you FEEL when you woke up?','Happy, scared, excited, confused? Your feelings are a clue!','q1'],
+    ['2','Was there anyone else in this dream/vision?','A friend, family, or stranger? What were they doing?','q2'],
+    ['3','Where did it take place?','School, home, somewhere strange? Places can have meaning!','q3'],
+    ['4','Did anything keep happening over and over?','Repeated things are usually important clues!','q4'],
+    ['5','Does this remind you of anything in the Bible?','Check the 📜 Scripture tab to look something up!','q5'],
+    ['6','Does this feel like it\'s about YOU or someone else?','Sometimes God shows us things about others so we can pray for them!','q6'],
+  ];
+  document.getElementById('qlist').innerHTML=qs.map(([n,q,h,id])=>`
+    <div style="margin-bottom:.85rem;">
+      <div style="font-weight:800;font-size:.83rem;color:var(--moon-gold);margin-bottom:.28rem;">${n}. ${q}</div>
+      <div style="font-size:.73rem;color:var(--cloud-light);margin-bottom:.3rem;font-style:italic;">${h}</div>
+      <textarea id="${id}" style="width:100%;background:rgba(14,29,64,.8);border:1.5px solid rgba(74,123,183,.4);border-radius:10px;padding:.5rem .8rem;color:var(--text-white);font-family:'Nunito';font-size:.83rem;outline:none;resize:vertical;min-height:62px;" placeholder="Write here..."></textarea>
+    </div>`).join('');
+}
+
+// ── MARKUP
+function syncMarkup(){const raw=document.getElementById('e-story').value;const md=document.getElementById('markupDisplay');if(raw&&!md.innerHTML.trim())md.innerText=raw;}
+function applyMark(type){const sel=window.getSelection();if(!sel||!sel.rangeCount||sel.isCollapsed)return;const range=sel.getRangeAt(0);const md=document.getElementById('markupDisplay');if(!md.contains(range.commonAncestorContainer))return;const span=document.createElement('span');span.className='mark-'+type;try{range.surroundContents(span);}catch(e){const f=range.extractContents();span.appendChild(f);range.insertNode(span);}sel.removeAllRanges();}
+function clearMarks(){const md=document.getElementById('markupDisplay');const t=md.innerText;md.innerHTML='';md.innerText=t;}
+
+// ── CANVAS ENGINE
+const canvases={
+  main:{el:null,ctx:null,color:'#FFD700',size:3,drawing:false,erasing:false},
+  dp:  {el:null,ctx:null,color:'#FFD700',size:3,drawing:false,erasing:false},
+};
+function initCanvas(key,id,h,bg){
+  const c=canvases[key];c.el=document.getElementById(id);c.ctx=c.el.getContext('2d');
+  c.el.height=h;c.el.width=c.el.offsetWidth||580;
+  if(bg){c.ctx.fillStyle=bg;c.ctx.fillRect(0,0,c.el.width,c.el.height);}
+  const draw=(e,touch)=>{if(!c.drawing)return;const p=getP(c.el,touch||e);c.ctx.lineTo(p.x,p.y);if(c.erasing){c.ctx.strokeStyle=bg||'rgba(0,0,0,1)';c.ctx.globalCompositeOperation=bg?'source-over':'destination-out';}else{c.ctx.strokeStyle=c.color;c.ctx.globalCompositeOperation='source-over';}c.ctx.lineWidth=c.size;c.ctx.lineCap='round';c.ctx.lineJoin='round';c.ctx.stroke();};
+  const start=(e,touch)=>{c.drawing=true;const p=getP(c.el,touch||e);c.ctx.beginPath();c.ctx.moveTo(p.x,p.y);};
+  c.el.addEventListener('mousedown',e=>start(e));c.el.addEventListener('mousemove',e=>draw(e));c.el.addEventListener('mouseup',()=>c.drawing=false);c.el.addEventListener('mouseleave',()=>c.drawing=false);
+  c.el.addEventListener('touchstart',e=>{e.preventDefault();start(null,e.touches[0]);},{passive:false});
+  c.el.addEventListener('touchmove',e=>{e.preventDefault();draw(null,e.touches[0]);},{passive:false});
+  c.el.addEventListener('touchend',()=>c.drawing=false);
+}
+function getP(el,e){const r=el.getBoundingClientRect();return{x:(e.clientX-r.left)*(el.width/r.width),y:(e.clientY-r.top)*(el.height/r.height)};}
+function setClr(el,key){canvases[key].color=el.dataset.color;canvases[key].erasing=false;const ebId=key==='main'?'mainEraseBtn':'dpEraseBtn';document.getElementById(ebId).classList.remove('active');const dots=el.closest('.dtoolbar').querySelectorAll('.cdot');dots.forEach(d=>d.classList.remove('active'));el.classList.add('active');}
+function setSz(el,s,key){canvases[key].size=s;el.closest('.dtoolbar').querySelectorAll('.sbtn').forEach(b=>b.classList.remove('active'));el.classList.add('active');}
+function toggleErase(key,btn){canvases[key].erasing=!canvases[key].erasing;btn.classList.toggle('active',canvases[key].erasing);}
+function clrCanvas(key){const c=canvases[key];if(!c.el)return;c.ctx.clearRect(0,0,c.el.width,c.el.height);if(key==='dp'){c.ctx.fillStyle='#FFF8E8';c.ctx.fillRect(0,0,c.el.width,c.el.height);}}
+
+// ── SYMBOL ROWS
+const DEFAULT_SYMS=[{icon:'🦁',text:''},{icon:'🏠',text:''},{icon:'💡',text:''}];
+function makeSymRow(icon,text){
+  const div=document.createElement('div');
+  div.className='sym-row';
+  div.innerHTML=`<input type="text" class="sym-icon-input" value="${icon||''}" maxlength="6" placeholder="🌙 or word">`
+    +`<input type="text" class="sym-meaning-input" value="${text||''}" placeholder="what it might mean..." style="color:#1A1A2E;">`
+    +`<button class="sym-del" onclick="this.parentElement.remove()" title="Remove">✕</button>`;
+  return div;
+}
+function addSymRow(){document.getElementById('symRows').appendChild(makeSymRow('',''));}
+
+
+// ── SAVE ENTRY
+function saveEntry(){
+  const title=document.getElementById('e-title').value.trim();
+  if(!title){showToast('⚠️ Give your dream a title first!');return;}
+  const g=id=>document.getElementById(id)?document.getElementById(id).value:'';
+  const chip=(gid)=>{const el=document.querySelector('#'+gid+' .chip.sel');return el?el.textContent:'';};
+  const entry={id:Date.now(),date:g('e-date')||new Date().toLocaleDateString(),time:g('e-time'),title,showType:chip('showType'),kind:chip('dreamKind'),involvement:chip('involvement'),story:g('e-story'),story2:g('e-story2'),markupHtml:document.getElementById('markupDisplay').innerHTML,markupNotes:g('e-mnotes'),q1:g('q1'),q2:g('q2'),q3:g('q3'),q4:g('q4'),q5:g('q5'),q6:g('q6'),meaning:g('e-meaning'),adultHelp:document.getElementById('adultHelp').checked,gmsg:g('e-gmsg'),a1:g('a1'),a2:g('a2'),a3:g('a3'),a4:g('a4'),drawing:canvases.main.el.toDataURL()};
+  entries.unshift(entry);localStorage.setItem('dv_entries',JSON.stringify(entries));
+  showToast('🌟 Dream saved!');resetEntry();renderEntries();renderLog();showTab('t-ent');
+}
+
+function resetEntry(){
+  ['e-date','e-time','e-title','e-story','e-story2','e-mnotes','e-meaning','e-gmsg','a1','a2','a3','a4','q1','q2','q3','q4','q5','q6'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('adultHelp').checked=false;
+  document.getElementById('markupDisplay').innerHTML='';
+  ['showType','dreamKind','involvement'].forEach(g=>document.querySelectorAll('#'+g+' .chip').forEach(c=>c.classList.remove('sel')));
+  clrCanvas('main');
+  document.getElementById('e-date').value=new Date().toLocaleDateString();
+  document.querySelectorAll('.eb').forEach((b,i)=>b.classList.toggle('active',i===0));
+  document.querySelectorAll('.stab').forEach((s,i)=>s.classList.toggle('active',i===0));
+}
+
+// ── DETECTIVE
+function newDp(){curDpId=null;['dp-t','dp-animal','dp-place','dp-feel','dp-cols','dp-person','dp-repeat','dp-ask','dp-verse','dp-godsay','dp-apply','dp-pray'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});resetSymRows();clrCanvas('dp');}
+
+function resetSymRows(){
+  const container=document.getElementById('symRows');
+  container.innerHTML='';
+  DEFAULT_SYMS.forEach(s=>container.appendChild(makeSymRow(s.icon,s.text)));
+}
+
+function saveDp(){
+  const title=document.getElementById('dp-t').value.trim();
+  if(!title){showToast('⚠️ Write the dream title first!');return;}
+  const g=id=>document.getElementById(id)?document.getElementById(id).value:'';
+  const symbols=Array.from(document.querySelectorAll('#symRows .sym-row')).map(r=>{const inputs=r.querySelectorAll('input');return{emoji:inputs[0]?inputs[0].value:'',text:inputs[1]?inputs[1].value:''};});
+  const dp={id:curDpId||Date.now(),date:new Date().toLocaleDateString(),title,animal:g('dp-animal'),place:g('dp-place'),feeling:g('dp-feel'),colors:g('dp-cols'),person:g('dp-person'),repeat:g('dp-repeat'),ask:g('dp-ask'),verse:g('dp-verse'),symbols,godsaying:g('dp-godsay'),apply:g('dp-apply'),prayer:g('dp-pray'),drawing:canvases.dp.el?canvases.dp.el.toDataURL():''};
+  if(curDpId){const i=dpages.findIndex(p=>p.id===curDpId);if(i>=0)dpages[i]=dp;else dpages.unshift(dp);}else{dpages.unshift(dp);curDpId=dp.id;}
+  localStorage.setItem('dv_detective',JSON.stringify(dpages));fillDpSel();showToast('🔍 Detective page saved!');
+}
+
+function loadDp(id){
+  if(!id)return;const dp=dpages.find(p=>p.id==id);if(!dp)return;curDpId=dp.id;
+  const s=(elId,val)=>{const el=document.getElementById(elId);if(el)el.value=val||'';};
+  s('dp-t',dp.title);s('dp-animal',dp.animal);s('dp-place',dp.place);s('dp-feel',dp.feeling);s('dp-cols',dp.colors);s('dp-person',dp.person);s('dp-repeat',dp.repeat);s('dp-ask',dp.ask);s('dp-verse',dp.verse);s('dp-godsay',dp.godsaying);s('dp-apply',dp.apply);s('dp-pray',dp.prayer);
+  if(dp.symbols&&dp.symbols.length){const container=document.getElementById('symRows');container.innerHTML='';dp.symbols.forEach(sym=>container.appendChild(makeSymRow(sym.emoji||'',sym.text||'')));}
+  if(dp.drawing){const img=new Image();img.onload=()=>{const c=canvases.dp;clrCanvas('dp');c.ctx.drawImage(img,0,0,c.el.width,c.el.height);};img.src=dp.drawing;}
+}
+
+function delDp(){if(!curDpId){showToast('Nothing to delete');return;}if(!confirm('Delete this detective page?'))return;dpages=dpages.filter(p=>p.id!==curDpId);localStorage.setItem('dv_detective',JSON.stringify(dpages));curDpId=null;newDp();fillDpSel();showToast('Deleted');}
+function fillDpSel(){const sel=document.getElementById('dpSel');sel.innerHTML='<option value="">— saved pages —</option>';dpages.forEach(dp=>{const o=document.createElement('option');o.value=dp.id;o.textContent=`"${dp.title}" (${dp.date})`;sel.appendChild(o);});}
+
+// ── SCRIPTURE (NLT via bible-api.com + keyword index)
+// Built-in NLT verse library: {ref: {text, keywords[], book, chapter}}
+const NLT_LIB=[
+  {ref:'Jeremiah 29:11',text:'For I know the plans I have for you," says the Lord. "They are plans for good and not for disaster, to give you a future and a hope.',book:'Jeremiah',ch:29,kw:['plans','future','hope','good','disaster']},
+  {ref:'Joel 2:28',text:'Then, after doing all those things, I will pour out my Spirit upon all people. Your sons and daughters will prophesy. Your old men will dream dreams, and your young men will see visions.',book:'Joel',ch:2,kw:['spirit','dreams','visions','prophesy','young','sons','daughters']},
+  {ref:'Numbers 12:6',text:'And the Lord said to them, "Now listen to what I say: If there were prophets among you, I, the Lord, would reveal myself in visions. I would speak to them in dreams.',book:'Numbers',ch:12,kw:['visions','dreams','prophets','reveal','speak']},
+  {ref:'Acts 2:17',text:'"In the last days," God says, "I will pour out my Spirit upon all people. Your sons and daughters will prophesy. Your young men will see visions, and your old men will dream dreams.',book:'Acts',ch:2,kw:['spirit','visions','dreams','prophesy','sons','daughters','young']},
+  {ref:'Daniel 2:22',text:'He reveals deep and mysterious things and knows what lies hidden in darkness, though he is surrounded by light.',book:'Daniel',ch:2,kw:['reveals','hidden','darkness','light','mysterious','deep']},
+  {ref:'Daniel 1:17',text:'God gave these four young men an unusual aptitude for understanding every aspect of literature and wisdom. And God gave Daniel the special ability to interpret the meanings of visions and dreams.',book:'Daniel',ch:1,kw:['visions','dreams','interpret','wisdom','daniel','understanding']},
+  {ref:'Genesis 37:5',text:'One night Joseph had a dream, and when he told his brothers about it, they hated him more than ever.',book:'Genesis',ch:37,kw:['dream','joseph','brothers']},
+  {ref:'Genesis 37:9',text:'Soon Joseph had another dream, and again he told his brothers about it. "Listen, I have had another dream," he said. "The sun, moon, and eleven stars bowed low before me!"',book:'Genesis',ch:37,kw:['dream','joseph','stars','sun','moon']},
+  {ref:'Psalm 46:1',text:'God is our refuge and strength, always ready to help in times of trouble.',book:'Psalms',ch:46,kw:['refuge','strength','help','trouble','protection','safe']},
+  {ref:'Psalm 23:1',text:'The Lord is my shepherd; I have all that I need.',book:'Psalms',ch:23,kw:['shepherd','need','lord','provide']},
+  {ref:'Psalm 23:4',text:'Even when I walk through the darkest valley, I will not be afraid, for you are close beside me. Your rod and your staff protect and comfort me.',book:'Psalms',ch:23,kw:['dark','afraid','fear','comfort','protect','valley','close']},
+  {ref:'Joshua 1:9',text:'This is my command—be strong and courageous! Do not be afraid or discouraged. For the Lord your God is with you wherever you go.',book:'Joshua',ch:1,kw:['strong','courageous','afraid','fear','discouraged','wherever','brave']},
+  {ref:'Isaiah 41:10',text:"Don't be afraid, for I am with you. Don't be discouraged, for I am your God. I will strengthen you and help you. I will hold you up with my victorious right hand.",book:'Isaiah',ch:41,kw:['afraid','fear','discouraged','strengthen','help','god','with you']},
+  {ref:'Isaiah 43:2',text:'When you go through deep waters, I will be with you. When you go through rivers of difficulty, you will not drown. When you walk through the fire of oppression, you will not be burned up; the flames will not consume you.',book:'Isaiah',ch:43,kw:['water','fire','trouble','danger','protect','with you','through']},
+  {ref:'Proverbs 3:5',text:'Trust in the Lord with all your heart; do not depend on your own understanding.',book:'Proverbs',ch:3,kw:['trust','heart','understanding','depend','wisdom']},
+  {ref:'Proverbs 3:6',text:'Seek his will in all you do, and he will show you which path to take.',book:'Proverbs',ch:3,kw:['direction','path','will','seek','guidance']},
+  {ref:'Romans 8:28',text:'And we know that God causes everything to work together for the good of those who love God and are called according to his purpose for them.',book:'Romans',ch:8,kw:['good','purpose','love','work together','called']},
+  {ref:'Matthew 17:20',text:'"You don\'t have enough faith," Jesus told them. "I tell you the truth, if you had faith even as small as a mustard seed, you could say to this mountain, \'Move from here to there,\' and it would move. Nothing would be impossible."',book:'Matthew',ch:17,kw:['faith','mustard seed','impossible','mountain','believe']},
+  {ref:'Matthew 7:7',text:'"Keep on asking, and you will receive what you ask for. Keep on seeking, and you will find. Keep on knocking, and the door will be opened to you.',book:'Matthew',ch:7,kw:['ask','seek','find','pray','answer','knock']},
+  {ref:'Philippians 4:6',text:"Don't worry about anything; instead, pray about everything. Tell God what you need, and thank him for all he has done.",book:'Philippians',ch:4,kw:['worry','pray','prayer','peace','anxiety','need','thankful']},
+  {ref:'Philippians 4:7',text:'Then you will experience God\'s peace, which exceeds anything we can understand. His peace will guard your hearts and minds as you live in Christ Jesus.',book:'Philippians',ch:4,kw:['peace','heart','mind','guard','understand','calm']},
+  {ref:'2 Timothy 1:7',text:'For God has not given us a spirit of fear and timidity, but of power, love, and self-discipline.',book:'2 Timothy',ch:1,kw:['fear','power','love','spirit','timidity','courage','brave']},
+  {ref:'1 John 4:18',text:'Such love has no fear, because perfect love expels all fear. If we are afraid, it is for fear of punishment, and this shows that we have not fully experienced his perfect love.',book:'1 John',ch:4,kw:['fear','love','perfect','afraid','expels']},
+  {ref:'Psalm 91:11',text:'For he will order his angels to protect you wherever you go.',book:'Psalms',ch:91,kw:['angels','protect','protection','safe','wherever','guard']},
+  {ref:'Psalm 91:4',text:'He will cover you with his feathers. He will shelter you with his wings. His faithful promises are your armor and protection.',book:'Psalms',ch:91,kw:['protection','shelter','wings','armor','feathers','safe','cover']},
+  {ref:'Psalm 139:17',text:'How precious are your thoughts about me, O God. They cannot be numbered!',book:'Psalms',ch:139,kw:['thoughts','precious','known','loved','value']},
+  {ref:'Psalm 139:1',text:'O Lord, you have examined my heart and know everything about me.',book:'Psalms',ch:139,kw:['known','heart','know','examine','seen','understood']},
+  {ref:'John 10:27',text:'My sheep listen to my voice; I know them, and they follow me.',book:'John',ch:10,kw:['voice','listen','follow','hear','shepherd','know']},
+  {ref:'John 16:13',text:'When the Spirit of truth comes, he will guide you into all truth. He will not speak on his own but will tell you what he has heard. He will tell you about the future.',book:'John',ch:16,kw:['spirit','truth','guide','future','tell','holy spirit','revelation']},
+  {ref:'Ephesians 1:17',text:'asking God, the glorious Father of our Lord Jesus Christ, to give you spiritual wisdom and insight so that you might grow in your knowledge of God.',book:'Ephesians',ch:1,kw:['wisdom','insight','knowledge','spiritual','understanding','revelation']},
+  {ref:'Habakkuk 2:2',text:'Then the Lord said to me, "Write my answer plainly on tablets, so that a runner can carry the correct message to others.',book:'Habakkuk',ch:2,kw:['write','vision','answer','record','revelation']},
+  {ref:'Job 33:14',text:'For God speaks again and again, though people do not recognize it.',book:'Job',ch:33,kw:['speak','voice','recognize','hear','god speaks']},
+  {ref:'Job 33:15',text:'He speaks in dreams, in visions of the night, when deep sleep falls on people as they lie in their beds.',book:'Job',ch:33,kw:['dreams','visions','night','sleep','speak','beds']},
+  {ref:'Psalm 16:7',text:'I will bless the Lord who guides me; even at night my heart instructs me.',book:'Psalms',ch:16,kw:['night','guide','heart','instruct','counsel']},
+];
+
+// Keyword topic groups for the suggestion chips
+const KEYWORD_TOPICS={
+  'dreams & visions':['dreams','visions'],
+  'fear / courage':['fear','brave','courage','afraid'],
+  'protection':['protect','safe','refuge','angels'],
+  'God speaking':['voice','hear','speak','reveal'],
+  'future / plans':['future','plans','hope','purpose'],
+  'wisdom':['wisdom','understanding','insight'],
+  'faith':['faith','trust','believe'],
+  'peace':['peace','calm','worry','anxiety'],
+  'known by God':['known','heart','loved'],
+};
+
+function lookupScr(){
+  const raw=document.getElementById('scrQ').value.trim();
+  const q=raw.toLowerCase();
+  if(!q)return;
+  const res=document.getElementById('scrRes');
+  res.innerHTML='<div class="scr-loading">🔍 Searching NLT...</div>';
+
+  // 1. Exact reference match in library
+  const exactLib=NLT_LIB.find(v=>v.ref.toLowerCase()===q);
+  if(exactLib){res.innerHTML='';renderVR(exactLib,res);return;}
+
+  // 2. Keyword / topic match in library
+  const kwMatches=NLT_LIB.filter(v=>{
+    const inKw=v.kw.some(k=>q.split(' ').some(w=>w.length>2&&k.includes(w)));
+    const inText=v.text.toLowerCase().includes(q);
+    const inRef=v.ref.toLowerCase().includes(q);
+    return inKw||inText||inRef;
+  });
+  if(kwMatches.length){
+    res.innerHTML=`<p style="font-size:.75rem;color:var(--cloud-light);margin-bottom:.6rem;">Found ${kwMatches.length} verse${kwMatches.length>1?'s':''} matching "${raw}" (NLT):</p>`;
+    kwMatches.forEach(v=>renderVR(v,res,true));
+    return;
+  }
+
+  // 3. Live fetch from bible-api.com (NLT)
+  fetch(`https://bible-api.com/${encodeURIComponent(raw)}?translation=nlt`)
+    .then(r=>r.json())
+    .then(d=>{
+      if(d.error||!d.text){
+        res.innerHTML=`<div class="scr-loading">No results for "${raw}".<br>Try a keyword like <em>courage</em>, <em>dreams</em>, or <em>peace</em>, or a reference like <em>John 3:16</em>.</div>`;
+        return;
+      }
+      res.innerHTML=`<p style="font-size:.75rem;color:var(--cloud-light);margin-bottom:.6rem;">Result (NLT):</p>`;
+      // Build a verse object from API response
+      const verses=d.verses||[];
+      if(verses.length>1){
+        // Multiple verses returned — show each individually with expand option
+        verses.forEach(v=>{
+          const obj={ref:`${d.reference} v.${v.verse}`,text:v.text.trim().replace(/\n/g,' '),book:d.book_name,ch:v.chapter,apiRef:`${d.book_name} ${v.chapter}`};
+          renderVR(obj,res,true);
+        });
+      } else {
+        const obj={ref:d.reference,text:d.text.trim().replace(/\n/g,' '),book:d.book_name,ch:d.verses&&d.verses[0]?d.verses[0].chapter:null,apiRef:d.reference};
+        renderVR(obj,res);
+      }
+    })
+    .catch(()=>{
+      res.innerHTML=`<div class="scr-loading">Could not connect to fetch live results.<br>Your built-in verses still work — try a keyword like <em>dreams</em> or <em>protection</em>!</div>`;
+    });
+}
+
+function renderVR(v,container,append=false){
+  const id='vr_'+Math.random().toString(36).slice(2,8);
+  const safeText=v.text.replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  const div=document.createElement('div');
+  div.className='vr';
+  div.id=id;
+  div.innerHTML=`
+    <div class="vref">📖 ${v.ref} <span style="font-size:.68rem;color:var(--cloud-light);font-weight:400;">(NLT)</span></div>
+    <div class="vtxt">"${v.text}"</div>
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.55rem;align-items:center;">
+      ${v.book&&v.ch?`<button class="vr-expand" onclick="expandChapter('${v.book}',${v.ch},'${id}')" style="background:rgba(74,123,183,.2);border:1px solid rgba(74,123,183,.4);color:var(--cloud-light);border-radius:8px;padding:.25rem .75rem;font-size:.73rem;cursor:pointer;font-family:'Nunito';font-weight:700;transition:all .2s;">📖 Read ${v.book} ${v.ch}</button>`:''}
+      <button class="vadd" onclick="copyVerse('${v.ref.replace(/'/g,"\\'")}','${safeText}')">✦ Copy to Journal</button>
+    </div>
+    <div class="ch-expand" id="chx_${id}" style="display:none;"></div>`;
+  if(!append)container.innerHTML='';
+  container.appendChild(div);
+}
+
+function expandChapter(book,ch,vrId){
+  const chxEl=document.getElementById('chx_'+vrId);
+  const btn=document.querySelector('#'+vrId+' .vr-expand');
+  if(chxEl.style.display!=='none'){chxEl.style.display='none';if(btn)btn.textContent=`📖 Read ${book} ${ch}`;return;}
+  chxEl.innerHTML='<div style="padding:.7rem;color:var(--cloud-light);font-style:italic;font-size:.78rem;">Loading chapter...</div>';
+  chxEl.style.display='block';
+  if(btn)btn.textContent='▲ Hide chapter';
+  fetch(`https://bible-api.com/${encodeURIComponent(book+' '+ch)}?translation=nlt`)
+    .then(r=>r.json())
+    .then(d=>{
+      if(!d.verses||!d.verses.length){chxEl.innerHTML='<div style="padding:.7rem;color:var(--cloud-light);font-size:.78rem;">Could not load chapter.</div>';return;}
+      const html=d.verses.map(v=>`<div style="display:flex;gap:.5rem;padding:.28rem 0;border-bottom:1px solid rgba(74,123,183,.1);">
+        <span style="min-width:22px;font-weight:800;font-size:.72rem;color:var(--moon-gold);margin-top:.1rem;flex-shrink:0;">${v.verse}</span>
+        <span style="font-size:.82rem;color:var(--text-white);line-height:1.65;">${v.text.trim()}</span>
+      </div>`).join('');
+      chxEl.innerHTML=`
+        <div style="background:rgba(14,29,64,.7);border-radius:10px;padding:.8rem;margin-top:.6rem;border:1px solid rgba(74,123,183,.25);">
+          <div style="font-family:'Fredoka One',cursive;font-size:.88rem;color:var(--moon-gold);margin-bottom:.5rem;">📖 ${d.reference} (NLT)</div>
+          ${html}
+        </div>`;
+    })
+    .catch(()=>{chxEl.innerHTML='<div style="padding:.7rem;color:var(--cloud-light);font-size:.78rem;">Could not connect to load chapter.</div>';});
+}
+
+function qv(ref){document.getElementById('scrQ').value=ref;lookupScr();}
+function qvKeyword(kw){document.getElementById('scrQ').value=kw;lookupScr();}
+
+function copyVerse(ref,text){
+  const fmt=`${ref} — "${text}"`;
+  const dv=document.getElementById('dp-verse');if(dv)dv.value=fmt;
+  const q5=document.getElementById('q5');if(q5&&!q5.value)q5.value=fmt;
+  showToast('📖 Verse copied to journal!');
+}
+
+// ── RENDER
+function renderEntries(){
+  const el=document.getElementById('entList');
+  if(!entries.length){el.innerHTML='<div class="empty"><div class="ei">🌙</div><p>No dreams written yet!<br>Start your first entry above.</p></div>';return;}
+  el.innerHTML=entries.map((e,i)=>`<div class="eli" onclick="openEntry(${i})"><div class="eli-t">✦ ${e.title}</div><div class="eli-m">📅 ${e.date}${e.time?' · ⏰ '+e.time:''}</div>${e.showType?`<span class="eli-chip">${e.showType}</span>`:''}${e.kind?`<span class="eli-chip" style="background:var(--dove-purple);margin-left:.3rem;">${e.kind}</span>`:''}</div>`).join('');
+}
+function renderLog(){
+  const tb=document.getElementById('logBody');
+  if(!entries.length){tb.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--cloud-light);padding:1.1rem;">No entries yet ✨</td></tr>';return;}
+  tb.innerHTML=entries.map((e,i)=>`<tr><td style="color:var(--moon-gold);font-weight:800;">${entries.length-i}</td><td>${e.date||''}</td><td style="font-weight:700;">${e.title}</td><td>${e.showType||'—'}</td><td><div class="ck-g"><label><input type="checkbox" ${e.meaning?'checked':''}> Yes</label><label><input type="checkbox" ${!e.meaning?'checked':''}> Not Yet</label></div></td></tr>`).join('');
+}
+function openEntry(i){
+  const e=entries[i];
+  const html=`
+    <div style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--moon-gold);margin-bottom:.25rem;">✦ ${e.title}</div>
+    <div style="font-size:.78rem;color:var(--cloud-light);margin-bottom:.8rem;">📅 ${e.date}${e.time?' · ⏰'+e.time:''} ${e.showType?' · '+e.showType:''}</div>
+    ${e.kind?`<div style="margin-bottom:.75rem;"><span class="eli-chip">${e.kind}</span>${e.involvement?`<span class="eli-chip" style="background:var(--teal);margin-left:.3rem;">${e.involvement}</span>`:''}</div>`:''}
+    ${e.story?`<div style="margin-bottom:.9rem;"><div class="band band-blue" style="font-size:.82rem;padding:.3rem .8rem;margin-bottom:.35rem;">✍️ The Dream / Vision</div><div style="font-size:.83rem;line-height:1.7;white-space:pre-wrap;">${e.story}${e.story2?'\n\n'+e.story2:''}</div></div>`:''}
+    ${e.markupHtml?`<div style="margin-bottom:.9rem;"><div class="band band-purple" style="font-size:.82rem;padding:.3rem .8rem;margin-bottom:.35rem;">🖍 Marked Up Version</div><div style="font-size:.83rem;line-height:1.85;background:rgba(14,29,64,.6);border-radius:10px;padding:.65rem .9rem;">${e.markupHtml}</div></div>`:''}
+    ${e.drawing&&!e.drawing.endsWith('d,')?`<div style="margin-bottom:.9rem;"><div class="band band-red" style="font-size:.82rem;padding:.3rem .8rem;margin-bottom:.35rem;">🎨 My Drawing</div><img src="${e.drawing}" style="width:100%;border-radius:10px;border:1px solid rgba(74,123,183,.3);"></div>`:''}
+    ${e.meaning?`<div style="margin-bottom:.9rem;"><div class="band band-gold" style="font-size:.82rem;padding:.3rem .8rem;margin-bottom:.35rem;">💡 What It Means</div><div style="font-size:.83rem;line-height:1.7;white-space:pre-wrap;">${e.meaning}</div>${e.adultHelp?'<p style="font-size:.73rem;color:var(--teal);margin-top:.3rem;">🙏 Adult helped with interpretation</p>':''}</div>`:''}
+    ${e.a1||e.a2?`<div><div class="band band-teal" style="font-size:.82rem;padding:.3rem .8rem;margin-bottom:.35rem;">🌱 How It Helps Me</div>${e.a1?`<p style="font-size:.8rem;margin-bottom:.3rem;"><strong style="color:var(--moon-gold);">About:</strong> ${e.a1}</p>`:''}${e.a2?`<p style="font-size:.8rem;"><strong style="color:var(--moon-gold);">I want to:</strong> ${e.a2}</p>`:''}</div>`:''}
+    <div style="display:flex;gap:.65rem;margin-top:1.1rem;flex-wrap:wrap;">
+      <button onclick="delEntry(${i})" style="background:rgba(184,58,82,.3);border:1px solid var(--blanket-red);color:#fff;border-radius:8px;padding:.4rem .85rem;cursor:pointer;font-size:.78rem;font-family:'Nunito';">🗑 Delete</button>
+    </div>`;
+  document.getElementById('modalBody').innerHTML=html;
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal(){document.getElementById('modal').classList.remove('open');}
+function delEntry(i){if(!confirm('Delete this dream entry?'))return;entries.splice(i,1);localStorage.setItem('dv_entries',JSON.stringify(entries));closeModal();renderEntries();renderLog();showToast('Entry deleted');}
+
+// ── TOAST
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600);}
+
+// ── DREAM DETECTIVE GAME
+const GAME_CLUES={
+  moon:{
+    emoji:'🌙',
+    name:'The Moon',
+    meaning:'Watching over you • Night season • Reflection • Something hidden coming to light',
+    explain:'The moon shines at night when it is dark. In dreams, a moon can mean God is watching over you even in dark or confusing times — or that something is about to be revealed!',
+    bible:'Psalm 121:6 — "The sun will not harm you by day, nor the moon at night." God watches over you always.',
+    reflect:'Have you ever felt like things were dark or confusing? What does it feel like to know God is watching over you even then?'
+  },
+  sun:{
+    emoji:'☀️',
+    name:'The Sun',
+    meaning:'Heat • Pressure • Power • Testing • God\'s glory • Something intense happening',
+    explain:'The sun gives light and warmth, but it can also feel really HOT and intense. In dreams, a sun might mean you are going through something that feels hard or pressured — like a test. It can also mean God\'s glory is shining on you!',
+    bible:'Malachi 4:2 — "But for you who fear my name, the Sun of Righteousness will rise with healing in his wings." God\'s light brings healing!',
+    reflect:'Is there something in your life right now that feels hard or intense — like standing in the hot sun? What do you think God might want to say about it?'
+  },
+  planet1:{
+    emoji:'🪐',
+    name:'A Planet with Rings',
+    meaning:'Different places or situations • Feeling far away • Being in a different world • Many things happening at once',
+    explain:'Planets are huge places far away in space. When you see a planet in a dream, it might mean there is a big situation or place in your life that feels different or far from normal — like something you do not fully understand yet.',
+    bible:'Isaiah 40:22 — God "sits above the circle of the earth." He can see every situation from far above, even ones that feel too big for us!',
+    reflect:'Is there a situation in your life that feels really big — like a whole planet? What would it look like to let God look at it from above?'
+  },
+  planet2:{
+    emoji:'🌍',
+    name:'A Planet (Like Earth)',
+    meaning:'Your world • Your home life • A place that matters to you • Things happening around you',
+    explain:'Earth is where we live — it\'s our whole world! When you see an Earth-like planet in a dream, it might represent your home, your school, your family, or the things that feel most important to your everyday life.',
+    bible:'Psalm 24:1 — "The earth is the Lord\'s, and everything in it." Everything in your world belongs to God and He cares about it!',
+    reflect:'What parts of your everyday world — home, school, friends — do you think God might be paying attention to right now?'
+  },
+  jump:{
+    emoji:'🧒',
+    name:'The Jumping Kid',
+    meaning:'Movement • A big transition or change • Excitement • Jumping into something new • Freedom',
+    explain:'When someone is jumping in a dream, it usually means something is moving or changing! Maybe you are about to jump into something new — a new season, a new skill, or a new step God is asking you to take. It is an exciting symbol!',
+    bible:'Psalm 18:29 — "In your strength I can crush an army; with my God I can scale any wall." With God, you can leap over anything!',
+    reflect:'Is there something new you feel like God might be calling you to step into or try? What would it feel like to jump into it?'
+  },
+  robot:{
+    emoji:'🤖',
+    name:'The Robot',
+    meaning:'Watching from a distance • Hiding feelings • Going through motions without heart • Feeling like an observer',
+    explain:'Robots do things automatically — they follow instructions but do not have real feelings. When a robot shows up in a dream, it might mean someone is watching without really being involved, or going through life without connecting their heart. It could also mean you notice someone who seems to be acting "robotic" — doing things without really meaning them.',
+    bible:'Mark 7:6 — Jesus said some people "honor me with their lips, but their hearts are far from me." God always wants our heart, not just our actions!',
+    reflect:'Is there something you do "automatically" — like going to church or praying — but your heart is not really in it? What would it look like to do it with your whole heart?'
+  },
+  rock:{
+    emoji:'🪨',
+    name:'The Space Rock',
+    meaning:'An interruption • A sudden attack or obstacle • Something unexpected coming • A challenge out of nowhere',
+    explain:'Space rocks (asteroids) come flying in fast and unexpectedly — they can seem scary! In a dream, a space rock might mean something unexpected is coming that could disrupt things. But here is the good news: God is never surprised by anything that comes at you!',
+    bible:'Isaiah 54:17 — "No weapon formed against you will succeed." Even the biggest space rocks cannot beat God\'s protection over your life!',
+    reflect:'Has anything happened recently that felt sudden and unexpected — like a rock flying out of nowhere? How did God help you through it?'
+  }
+};
+
+let gameFound=new Set();
+let gameActive=false;
+
+function initGame(){
+  if(gameActive)return;
+  gameActive=true;
+  gameFound=new Set();
+  updateGameProgress();
+  document.getElementById('game-clue-panel').style.display='none';
+  document.getElementById('game-found-wrap').style.display='none';
+  document.getElementById('game-finale').style.display='none';
+  document.querySelectorAll('.game-symbol').forEach(el=>{el.classList.remove('found');el.style.pointerEvents='';el.style.opacity='';});
+  document.getElementById('game-badges').innerHTML='';
+  document.getElementById('game-found-list').innerHTML='';
+}
+
+function clueClick(key){
+  const clue=GAME_CLUES[key];
+  if(!clue)return;
+  // Show panel
+  const panel=document.getElementById('game-clue-panel');
+  document.getElementById('gcp-title').textContent=clue.name;
+  document.getElementById('gcp-emoji').textContent=clue.emoji;
+  document.getElementById('gcp-meaning').textContent=clue.meaning;
+  document.getElementById('gcp-explain').textContent=clue.explain;
+  document.getElementById('gcp-reflect').textContent=clue.reflect;
+  const bibleWrap=document.getElementById('gcp-bible-wrap');
+  if(clue.bible){bibleWrap.style.display='block';document.getElementById('gcp-bible').textContent=clue.bible;}
+  else{bibleWrap.style.display='none';}
+  panel.style.display='block';
+  panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+
+  // Mark as found
+  if(!gameFound.has(key)){
+    gameFound.add(key);
+    // Grey out symbol
+    const symEl=document.getElementById('gs-'+key);
+    if(symEl){symEl.classList.add('found');symEl.style.opacity='.45';symEl.style.pointerEvents='none';}
+    // Add badge
+    const badge=document.createElement('div');
+    badge.style.cssText='background:rgba(58,140,110,.5);border:1px solid var(--teal);border-radius:50px;padding:.2rem .6rem;font-size:.7rem;font-weight:700;color:#fff;';
+    badge.textContent=clue.emoji+' '+clue.name;
+    document.getElementById('game-badges').appendChild(badge);
+    // Add to found list
+    const chip=document.createElement('div');
+    chip.className='game-found-chip chip-done';
+    chip.textContent=clue.emoji+' '+clue.name;
+    document.getElementById('game-found-list').appendChild(chip);
+    document.getElementById('game-found-wrap').style.display='block';
+    updateGameProgress();
+    // Check win
+    if(gameFound.size>=6)setTimeout(showGameFinale,600);
+  }
+}
+
+function closeCluePanel(){document.getElementById('game-clue-panel').style.display='none';}
+
+function updateGameProgress(){
+  const n=gameFound.size,total=6;
+  document.getElementById('game-progress-fill').style.width=Math.round((n/total)*100)+'%';
+  document.getElementById('game-progress-label').textContent=n+' / '+total+' clues';
+}
+
+function showGameFinale(){
+  document.getElementById('game-clue-panel').style.display='none';
+  document.getElementById('game-finale').style.display='block';
+  document.getElementById('game-finale').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function resetGame(){
+  gameActive=false;
+  document.getElementById('game-finale').style.display='none';
+  document.getElementById('game-god-answer').value='';
+  initGame();
+}
+
+function sendGameToJournal(){
+  const answer=document.getElementById('game-god-answer').value.trim();
+  const clueLines=Array.from(gameFound).map(k=>{const c=GAME_CLUES[k];return`${c.emoji} ${c.name}: ${c.meaning}`;}).join('\n');
+  const storyText=`🎮 Dream Detective Game — Space Dream Clues Found:\n\n${clueLines}${answer?'\n\n🙏 What I think God is saying:\n'+answer:''}`;
+  // Switch to new entry, populate story
+  showTab('t-new');
+  // Set the section to Write
+  document.querySelectorAll('.stab').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.eb').forEach(b=>b.classList.remove('active'));
+  document.getElementById('s-write').classList.add('active');
+  const writeBtn=document.querySelector('.eb:nth-child(2)');
+  if(writeBtn)writeBtn.classList.add('active');
+  const storyEl=document.getElementById('e-story');
+  if(storyEl){storyEl.value=storyText;storyEl.focus();}
+  if(!document.getElementById('e-title').value)
+    document.getElementById('e-title').value='Space Dream — Detective Game';
+  showToast('✅ Clues sent to your Journal Entry!');
+}
+
+
+// ── SYMBOL LIBRARY
+const SYM_LIB=[
+// ANIMALS
+{emoji:'🦁',name:'Lion',cat:'animals',meanings:'Courage • Strength • Authority • Royalty',
+  bibleMeaning:"In the Bible, a lion often represents Jesus — He is called the Lion of Judah! It can also represent bold, God-given courage. David killed a lion protecting his sheep, and God gave him the strength to do it. A lion in your dream might mean God is making you brave for something important.",
+  everydayMeaning:"In everyday life, a lion is the symbol of a leader — someone powerful and in charge. If you dream of a lion, it might mean something in your life feels big and powerful. If the lion is friendly, something or someone strong is on your side. If it's scary, something feels threatening.",
+  reflect:'Did the lion feel scary or safe? Was it chasing you or protecting you? Ask God: are you the lion, or is He?'},
+{emoji:'🐍',name:'Snake',cat:'animals',meanings:'Lies • Deception • The enemy • Hidden danger',
+  bibleMeaning:"The serpent in the Bible goes all the way back to the Garden of Eden — it represents the enemy, lies, and deception. A snake in your dream is often a warning from God that something or someone is trying to trick you. The good news: God gave believers power over snakes (Luke 10:19)!",
+  everydayMeaning:"In everyday life, a snake can mean something sneaky is happening around you — like gossip, a lie someone told, or a situation that seems okay on the outside but is actually dangerous. It might also mean you feel like someone cannot be fully trusted right now.",
+  reflect:'Is there something in your life that feels slippery or dishonest? Ask God to show you clearly what is true.'},
+{emoji:'🦅',name:'Eagle',cat:'animals',meanings:'Freedom • Rising above • God lifting you higher • Prophetic sight',
+  bibleMeaning:"Eagles are one of the most powerful symbols in Scripture. God describes carrying His people on eagle's wings (Exodus 19:4). Eagles soar at great heights and have incredible eyesight — they can see things people cannot. Dreaming of an eagle might mean God wants to lift you above your situation so you can see it the way He does.",
+  everydayMeaning:"Eagles represent freedom, power, and clarity. In everyday life, an eagle in a dream might mean you are feeling free from something that was weighing you down — or that God wants you to stop looking at problems up close and zoom out to see the bigger picture.",
+  reflect:'Are you flying like the eagle, or watching it from the ground? What do you think God wants you to see from higher up?'},
+{emoji:'🕊️',name:'Dove',cat:'animals',meanings:'The Holy Spirit • Peace • A message from God • New beginning',
+  bibleMeaning:"The dove is one of the most sacred dream symbols in the Bible. When Jesus was baptized, the Holy Spirit descended like a dove. Noah sent out a dove and it returned with an olive branch — the first sign of peace after the flood. A dove in your dream is almost always connected to the Holy Spirit, peace, or a fresh start.",
+  everydayMeaning:"In everyday life, doves are symbols of peace, gentleness, and calm. If you dream of a dove, it might mean you are entering a peaceful season, or that the tension in a situation is about to settle down. It can also mean you need to be gentle in how you handle something.",
+  reflect:'Did you feel peaceful in the dream when the dove appeared? What might God be bringing peace to in your life right now?'},
+{emoji:'🐑',name:'Sheep',cat:'animals',meanings:'Following God • Being cared for • Innocence • Community',
+  bibleMeaning:"Jesus calls Himself the Good Shepherd and calls us His sheep. Sheep in the Bible represent people who follow and trust their shepherd. A dream with sheep might mean God is reminding you that He is watching over you and guiding you — and that you are safe when you stay close to Him.",
+  everydayMeaning:"In everyday life, sheep are known for following the crowd. A dream with sheep might mean you are going along with what everyone else is doing without thinking about whether it is right. God might be asking: are you following the crowd, or following Me?",
+  reflect:'Do you feel like you are following Jesus closely right now, or have you been following the wrong crowd?'},
+{emoji:'🐶',name:'Dog',cat:'animals',meanings:'Loyalty • Friendship • A trustworthy person',
+  bibleMeaning:"Dogs in the Bible were mostly outside animals — sometimes used as an insult for unclean or untrustworthy people. If a dog in your dream feels menacing or aggressive, it might represent someone who is talking badly about you or being hostile. But a friendly dog could represent loyalty and faithful companionship.",
+  everydayMeaning:"In everyday life, dogs represent loyalty, friendship, and unconditional love. A friendly dog in a dream often represents a loyal friend or someone who has your back no matter what. It might also mean you are longing for that kind of loyal friendship in your life.",
+  reflect:'Did the dog in your dream feel like a friend or a threat? Who in your life shows up for you no matter what?'},
+{emoji:'🐻',name:'Bear',cat:'animals',meanings:'Strength • Protecting what is yours • Danger if charging',
+  bibleMeaning:"In the Bible, bears represent powerful, fierce forces. David fought a bear protecting his father's sheep — and God helped him win. A bear in a dream might mean something powerful is at work, either protecting something important or coming against you. Either way, God is stronger.",
+  everydayMeaning:"In everyday life, a bear can mean something huge and overwhelming is in your path. A protective mama bear means someone is fiercely defending you or something you love. A charging bear might mean a big challenge is coming at you fast — and you will need to stand your ground.",
+  reflect:'Was the bear protecting you or charging at you? What big challenge might God be helping you face?'},
+{emoji:'🐦',name:'Bird',cat:'animals',meanings:'Messages • Freedom • The Holy Spirit • Thoughts',
+  bibleMeaning:"Birds throughout the Bible carry messages, represent the Holy Spirit, and show God's care for even the smallest living things. Jesus said not one sparrow falls without God knowing — so birds often mean God is paying close attention to the details of your life.",
+  everydayMeaning:"In everyday life, different birds mean different things. A singing bird might mean joy or good news is coming. A bird flying away might mean something is leaving your life. Pay special attention to the color and type of bird — black birds often feel ominous, white birds feel peaceful, colorful birds feel exciting.",
+  reflect:'What kind of bird was it, and what was it doing? Was it coming toward you or flying away?'},
+{emoji:'🦋',name:'Butterfly',cat:'animals',meanings:'Transformation • Big change coming • Something beautiful growing',
+  bibleMeaning:"While butterflies are not mentioned specifically in the Bible, the transformation from caterpillar to butterfly is one of the most powerful pictures of what God does in people's lives. The Bible says believers are transformed — like becoming a completely new creation. A butterfly in your dream almost always means God is doing something new in you.",
+  everydayMeaning:"In everyday life, butterflies represent change, beauty, and freedom. A butterfly in your dream might mean you are in the middle of a big change that feels uncomfortable right now — like the caterpillar stage — but something beautiful is on the other side. It can also mean lightness and joy are coming.",
+  reflect:'Is there something in your life that feels like it is in a cocoon right now — uncomfortable but changing?'},
+{emoji:'🐠',name:'Fish',cat:'animals',meanings:'People • Abundance • Ministry • Multiplication',
+  bibleMeaning:"Fish in the Bible are deeply connected to people and ministry. Jesus fed thousands with just a few fish, showing God's multiplication power. He called His disciples to be fishers of people. Fish in a dream can mean God wants to multiply something in your life, or that He is calling you to reach people.",
+  everydayMeaning:"In everyday life, fish can represent abundance — having more than enough. A school of fish might mean you are surrounded by many people. One fish might mean one important relationship or connection. A fish tank might mean something feels contained or limited that God wants to release.",
+  reflect:'Were there many fish or just one? Were they swimming freely or contained? What might that represent in your life?'},
+{emoji:'🐺',name:'Wolf',cat:'animals',meanings:'A false person • Danger in disguise • Someone hiding their true self',
+  bibleMeaning:"Jesus specifically warned about wolves in sheep's clothing — people who appear to belong but are actually dangerous. A wolf in a dream is a strong warning from God: pay attention to someone or something that looks safe but is not. Do not ignore this kind of dream.",
+  everydayMeaning:"In everyday life, a wolf represents something aggressive that is hiding — waiting for the right moment. It might mean someone around you has a hidden agenda, or that something in a situation is not what it seems. If you saw the wolf but felt calm, God might be showing you the danger while keeping you protected.",
+  reflect:'Is there a person or situation in your life right now that looks fine on the outside but gives you a bad feeling inside?'},
+// PLACES
+{emoji:'🏠',name:'House',cat:'places',meanings:'Your life • Your heart • Your family • Your inner self',
+  bibleMeaning:"In the Bible, a house often represents a person's life, heart, or spiritual state. Jesus talked about building your house on rock versus sand. Paul said our bodies are temples — houses for God's Spirit. Different rooms in a house can represent different areas of your life: the basement might be hidden things, the attic might be memories, the front door might be what you show the world.",
+  everydayMeaning:"In everyday life, the condition of the house in your dream matters a lot. A clean, bright house means peace and order in your life. A dark, messy, or broken house might mean something feels chaotic or neglected inside you. Moving into a new house usually means a new season of life is starting.",
+  reflect:'What condition was the house in? Was it your real home or somewhere different? What room did you spend the most time in?'},
+{emoji:'🏫',name:'School',cat:'places',meanings:'Learning • Preparation • Being tested • A season of growth',
+  bibleMeaning:"In the Bible, wisdom and knowledge are among the most prized gifts from God. Solomon asked God for wisdom above everything else, and God gave it to him. School in a dream might mean God is putting you in a season of spiritual learning — teaching you things that cannot be learned in a classroom.",
+  everydayMeaning:"In everyday life, school dreams are super common — especially dreaming of being late, failing a test, or not knowing where to go. These usually mean you feel unprepared for something in real life, or anxious about being judged or evaluated. Missing a class often means you feel like you are missing out on something important.",
+  reflect:'Were you prepared in the dream or unprepared? What is happening in your real life that makes you feel like you are being tested?'},
+{emoji:'⛪',name:'Church',cat:'places',meanings:"God's presence • Community • Worship • Your spiritual life",
+  bibleMeaning:"Church represents the Body of Christ — the gathered people of God. In the Bible, the church is not a building but a family. A dream about church might mean God is speaking about your spiritual community, your worship life, or your relationship with Him. What happens inside the church in the dream is very important.",
+  everydayMeaning:"In everyday life, church can represent your sense of belonging, community, and spiritual routine. If church in your dream feels warm and full of life, your spiritual connections are healthy. If it feels empty, cold, or scary, there might be something about your community or faith life that needs attention.",
+  reflect:'Was the church full or empty? Did it feel safe and welcoming, or strange and uncomfortable? What was happening inside?'},
+{emoji:'🌊',name:'Ocean / Water',cat:'places',meanings:'The Holy Spirit • Deep emotions • Overwhelming feelings • Cleansing',
+  bibleMeaning:"Water is one of the most significant symbols in all of Scripture. The Holy Spirit moved over the waters at creation. Jesus was baptized in water. Rivers of living water represent the Holy Spirit flowing from believers. In dreams, water almost always connects to the Spirit of God or to deep spiritual things.",
+  everydayMeaning:"In everyday life, water in dreams usually represents emotions. Calm, clear water means emotional peace. Murky or dark water means emotional confusion or hidden things. Being swept away by a wave might mean you feel overwhelmed. Standing on the shore watching the ocean might mean you are observing something big but not yet willing to step into it.",
+  reflect:'Was the water calm or stormy? Were you in it or watching it? Did you feel safe or scared?'},
+{emoji:'🏞️',name:'River',cat:'places',meanings:"The Holy Spirit moving • God's blessing flowing • Going somewhere with God",
+  bibleMeaning:"Rivers in the Bible represent the flow of the Holy Spirit and God's blessing. Ezekiel saw a river flowing from the temple that brought life everywhere it went. A river in a dream usually means the Holy Spirit is moving and God is doing something that is going somewhere — you are invited to flow with it.",
+  everydayMeaning:"In everyday life, a river represents movement and direction. If you are swimming with the current, things are flowing well. If you are fighting against the current, you might be resisting something that is actually meant to carry you forward. A dried-up river might mean you feel like something that used to bring life has gone quiet.",
+  reflect:'Were you swimming easily or struggling? Was the water clear or muddy? Were you going with the river or against it?'},
+{emoji:'⛰️',name:'Mountain',cat:'places',meanings:'A big challenge • A high place with God • Something that seems impossible',
+  bibleMeaning:"Mountains in the Bible are places of encounter with God. Moses met God on a mountain. Jesus was transfigured on a mountain. Mountains also represent obstacles that faith can move. A mountain in your dream might mean God is calling you to a higher place spiritually, or that He is giving you the faith to move something that seems impossible.",
+  everydayMeaning:"In everyday life, a mountain represents something huge that stands between you and where you want to go. If you are climbing the mountain in your dream, you are working through a challenge step by step. Standing on top means victory. Looking up at it from the bottom might mean the challenge feels overwhelming right now — but not for long.",
+  reflect:'Were you at the bottom, climbing, or at the top? Did the mountain feel like an obstacle or like a destination where God was calling you?'},
+{emoji:'🌲',name:'Forest',cat:'places',meanings:'Confusion • Feeling lost • A hidden place • Something to push through',
+  bibleMeaning:"Forests and wilderness in the Bible are often places of testing, preparation, and encountering God. Moses met God in the wilderness. Jesus was led into the wilderness before His ministry began. A forest might mean you are in a season of preparation that feels confusing — but God is present even in the dark.",
+  everydayMeaning:"In everyday life, a dark forest usually means confusion, feeling lost, or not knowing which way to go. If there is light coming through the trees, help and clarity are close. Finding a path means you are figuring things out. Being completely lost might mean you need to stop and ask God for direction instead of trying to figure it out alone.",
+  reflect:'Was there a path in the forest, or were you wandering? Was it dark the whole time, or did any light come through?'},
+{emoji:'🏙️',name:'City',cat:'places',meanings:'Community • A calling to reach many people • A place of influence',
+  bibleMeaning:"Cities in the Bible represent places where people gather — and where God's people are called to make an impact. Jonah was sent to a city. Paul traveled to cities to preach. A city in your dream might mean God is preparing you to influence many people, not just a small circle.",
+  everydayMeaning:"In everyday life, a busy city might mean your life feels crowded, rushed, or overwhelming. An empty city might mean you feel alone even when surrounded by people. A city on fire could mean something is in crisis. A beautiful, lit-up city might mean something exciting and full of opportunity is ahead.",
+  reflect:'What was the city like — busy, empty, beautiful, dangerous? Was it somewhere you wanted to be, or were you trying to leave?'},
+{emoji:'🚪',name:'Door',cat:'places',meanings:'A new opportunity • A choice • An invitation from God',
+  bibleMeaning:"Doors in the Bible represent access, opportunity, and invitation. Jesus says, 'I stand at the door and knock.' He also says He is the Door — the way to salvation and to the Father. An open door in a dream almost always means God is making a new way available to you. A closed or locked door might mean not yet — wait on God's timing.",
+  everydayMeaning:"In everyday life, a door represents a decision point or a new beginning. Walking through a door means you are making a choice to move forward. Standing in front of a door and not going in might mean you feel hesitant about a new opportunity. A door slamming shut might mean something is ending — but another door is about to open.",
+  reflect:'Was the door open, closed, or locked? Did you walk through it? What might God be inviting you into on the other side?'},
+{emoji:'🏜️',name:'Desert',cat:'places',meanings:'A dry or lonely season • Being prepared by God • Waiting',
+  bibleMeaning:"The desert is one of the most significant places in the Bible. Moses spent 40 years in the desert before leading Israel. Israel wandered the desert for 40 years being formed into a people. Jesus went into the desert to fast and be tested before His ministry. The desert is not a punishment — it is where God prepares great people for great things.",
+  everydayMeaning:"In everyday life, a desert represents a dry, lonely, or empty season. Nothing seems to be growing. Things feel boring or stuck. You might feel far from your friends or from God. But desert seasons always end — and they always lead to something greater. The important thing is not to give up while you are in it.",
+  reflect:"Does your life feel like a desert right now? What do you think God might be preparing you for on the other side of this season?"},
+{emoji:'🌉',name:'Bridge',cat:'places',meanings:'Transition • Crossing from one season to another • A connection between two things',
+  bibleMeaning:"While bridges are not a major symbol in Scripture, crossing over is — the Israelites crossed the Jordan River into the Promised Land. A bridge in a dream often means you are crossing from one season of life into something new. God is the one who builds the bridge and makes the crossing possible.",
+  everydayMeaning:"In everyday life, a bridge means you are in a transition — not where you were, not yet where you are going. Standing in the middle of a bridge might mean you are in an in-between season. A broken bridge might mean you feel stuck and cannot cross over on your own. A strong bridge means the path forward is solid.",
+  reflect:'Were you crossing the bridge, standing on it, or afraid to step onto it? What feels like you are trying to cross over to right now?'},
+// PEOPLE
+{emoji:'🧍',name:'Stranger',cat:'people',meanings:'An angel • A part of yourself • Someone you will meet • God sending someone',
+  bibleMeaning:"The Bible says some people have entertained angels without knowing it (Hebrews 13:2). A stranger in a dream who brings peace, a message, or something meaningful could very well be an angel. Pay close attention to what the stranger said or gave you — it might be a direct message from God.",
+  everydayMeaning:"In everyday life, a stranger in a dream might represent a part of yourself you have not fully discovered yet — like a hidden talent or a side of your personality that is coming to life. It could also mean God is about to bring someone new into your life who will be important.",
+  reflect:'How did the stranger make you feel — safe, curious, uneasy? Did they say or give you anything? Write it down!'},
+{emoji:'👨‍👩‍👧',name:'Family Member',cat:'people',meanings:'That actual person • A trait they represent • A message for them',
+  bibleMeaning:"In the Bible, God often used dreams to communicate messages about families — Joseph's dreams were about his family, and God spoke through dreams about family lines and covenants. When a real family member appears in your dream, God might be asking you to pray for them, or He might be using them as a symbol of something they represent in your life.",
+  everydayMeaning:"In everyday life, a family member in a dream often represents something about that relationship. If there is tension in the dream, there might be unresolved feelings in real life. If the family member in the dream is doing something unusual, it might mean God is showing you something about their life that needs prayer.",
+  reflect:"What was your family member doing in the dream? Did it feel like it was ABOUT them, or were they representing something else in your life?"},
+{emoji:'👑',name:'King / Authority Figure',cat:'people',meanings:"God's authority • A leader in your life • Your own leadership calling",
+  bibleMeaning:"Kings and rulers in the Bible represent authority — both God's authority and human authority. A kind, wise king in a dream might represent God Himself or the godly leadership in your life. A harsh or corrupt king might mean something has wrong authority over you that needs to be addressed.",
+  everydayMeaning:"In everyday life, an authority figure — like a principal, coach, parent, or boss — in a dream often represents the real authority figures in your life and how you feel about them. If you feel at peace with the authority figure, you are in a good place with the people who lead you. If you are running from them or afraid, there might be something to work through.",
+  reflect:'Was the authority figure kind or intimidating? Were you respecting them, arguing with them, or running away?'},
+{emoji:'👼',name:'Angel',cat:'people',meanings:"A message from God • Protection • God's presence near you",
+  bibleMeaning:"Angels appear throughout the entire Bible as God's messengers. They appeared to Mary, to Joseph, to Daniel, to Elijah, and many others. An angel in a dream is always significant — it often means God is sending a direct message or showing you that His protection is surrounding you. Write down everything the angel said or did.",
+  everydayMeaning:"In everyday life, an angel in a dream makes most people feel comforted and safe. Even if the angel looks serious or says something challenging, there is usually a sense that what they are saying is important and worth listening to. Angels do not come just to scare — they come with purpose.",
+  reflect:"Did the angel speak? What did it feel like to be in the angel's presence — overwhelming, peaceful, exciting?"},
+{emoji:'😈',name:'Scary Figure',cat:'people',meanings:'Fear • The enemy • Something trying to threaten you',
+  bibleMeaning:"Demonic or dark figures in dreams are not meant to make you cower — they are often God allowing you to see what is spiritually at work so you can pray against it. The Bible says God has given believers authority over evil spirits. A scary figure in a dream might be God showing you an enemy so you know what to fight in prayer.",
+  everydayMeaning:"In everyday life, a scary figure in a dream might represent a deep fear you have not dealt with yet — something you are avoiding or something that feels bigger than you. The good news is that most scary figures in dreams cannot actually hurt you once you remember who you are in God.",
+  reflect:'Did you fight back, run, or freeze? What does the scary figure remind you of in your real life? Ask God to give you His courage.'},
+{emoji:'👫',name:'Friend / Classmate',cat:'people',meanings:'That actual friendship • Your social world • How you treat others',
+  bibleMeaning:"Friendship in the Bible is a deep covenant — David and Jonathan are the ultimate example. A friend in a dream might mean God wants you to invest in that friendship more deeply, pray for that person, or repair something that has been damaged between you.",
+  everydayMeaning:"In everyday life, a friend in a dream almost always means something about the actual friendship. If you are happy together in the dream, the friendship is a good one. If there is conflict or distance, there might be something unspoken between you in real life that needs to be addressed.",
+  reflect:"What was your friend doing in the dream — helping you, hurting you, or just present? Does that mirror anything in your real friendship?"},
+{emoji:'🧓',name:'Grandparent / Elder',cat:'people',meanings:'Wisdom • Legacy • A message passed down through generations',
+  bibleMeaning:"Elders in the Bible represent wisdom, legacy, and the transfer of blessing from one generation to the next. When a grandparent or elderly person appears in a dream, God might be connecting you to your heritage, passing something down to you, or speaking wisdom through someone you respect.",
+  everydayMeaning:"In everyday life, dreaming of a grandparent — especially one who has passed away — can feel very real and emotional. It often means you are being reminded of something that person taught you, something they believed in, or something they would say to you right now if they could.",
+  reflect:'Was the elder giving you something, speaking to you, or just being present with you? What do you think they represent?'},
+// ACTIONS & FEELINGS
+{emoji:'✈️',name:'Flying',cat:'actions',meanings:"Freedom • Rising above problems • God's perspective • Going higher",
+  bibleMeaning:"Flying in the Spirit is a picture of moving in supernatural territory — rising above natural limitations. The Bible says God's people will mount up with wings like eagles. Flying in a dream can mean you are moving into a higher level of faith, spiritual perception, or calling.",
+  everydayMeaning:"In everyday life, flying in a dream is one of the best feelings! It almost always means something good — freedom from a heavy burden, feeling unstoppable, or finally moving past something that held you back. If flying is effortless, you are in a really good place. If you keep almost falling, something might still be pulling you down.",
+  reflect:'How did flying feel — completely free, or like you had to keep working to stay up? What might God be lifting you above right now?'},
+{emoji:'😰',name:'Falling',cat:'actions',meanings:'Fear of failure • Losing control • A test of trust',
+  bibleMeaning:"Falling in Scripture can represent being humbled or losing your footing spiritually. But the Bible also promises that even when a righteous person stumbles, God upholds them. A falling dream might be God's reminder that He is your foundation — you cannot truly fall when you are standing on Him.",
+  everydayMeaning:"In everyday life, falling dreams are extremely common and almost always connected to anxiety — feeling out of control, afraid of failing something, or worrying about what other people think. They are your brain processing the stress of real life. The important thing is: what were you falling from, and who (if anyone) caught you?",
+  reflect:'Did you land, keep falling, or did someone catch you? What feels out of control in your real life right now?'},
+{emoji:'🏃',name:'Running',cat:'actions',meanings:'Moving toward a goal • Running from fear • Urgency',
+  bibleMeaning:"The Bible uses running as a picture of the Christian life — running with endurance the race God set before us. Running toward something in a dream means you are chasing what God has for you. Running away usually means there is something you need to stop avoiding and face with God's help.",
+  everydayMeaning:"In everyday life, running in a dream often means urgency — something feels like it needs to happen fast. If you are running joyfully, you are excited about your direction. If you are running desperately, something feels urgent and stressful. If your legs feel heavy and slow, you might feel stuck even though you want to move forward.",
+  reflect:'Were you running toward something or away from something? Did your legs feel light or heavy?'},
+{emoji:'😶',name:'Cannot Speak',cat:'actions',meanings:'Feeling unheard • Fear of speaking up • Your voice is being held back',
+  bibleMeaning:"In the Bible, being unable to speak was sometimes a sign from God — Zechariah was struck speechless when he doubted the angel. It can represent a time when God is doing the talking for a while. But it can also mean God is about to open your mouth and give you a voice like He did for Jeremiah, who said he did not know how to speak.",
+  everydayMeaning:"In everyday life, not being able to speak in a dream is one of the most frustrating experiences. It usually means you have something important to say but feel like no one will listen, or you are afraid of how people will respond. God wants you to know: your voice matters, and He will help you use it.",
+  reflect:'What were you trying to say that would not come out? Is there something in real life you have been holding back from saying?'},
+{emoji:'😱',name:'Being Chased',cat:'actions',meanings:'Avoiding something • Fear • The enemy trying to intimidate you',
+  bibleMeaning:"Being chased in a dream often has a spiritual layer — it can mean the enemy is trying to keep you running scared instead of turning around to face what God has equipped you for. The Bible says to resist the devil and he will flee from you — but first you have to stop running.",
+  everydayMeaning:"In everyday life, being chased in a dream is almost always connected to something you are avoiding — a hard conversation, a fear, a responsibility, or a problem that keeps following you around no matter what. The thing chasing you is rarely random — it is usually a picture of the thing you most want to escape.",
+  reflect:"What was chasing you? Was it a person, a creature, or something you couldn't see? What does it remind you of in your real life?"},
+{emoji:'🔍',name:'Searching',cat:'actions',meanings:"Seeking God • Looking for purpose • Something important is missing",
+  bibleMeaning:"The Bible says God rewards those who diligently seek Him. Searching in a dream might mean your spirit is longing for something only God can give — answers, purpose, direction, or a deeper sense of His presence. It might be His invitation to seek Him more.",
+  everydayMeaning:"In everyday life, searching in a dream usually means something important feels missing — a sense of purpose, a relationship, belonging, or clarity about a decision. The more frantic the searching feels, the more urgently your heart is looking for something it needs.",
+  reflect:'What were you searching for in the dream? Did you find it? What does your heart feel like it is looking for in real life?'},
+{emoji:'💧',name:'Crying',cat:'actions',meanings:"Deep emotion • God sees your pain • Something important to your heart",
+  bibleMeaning:"Tears are precious to God — the Bible says He collects them in a bottle. Crying in a dream can mean the Holy Spirit is stirring deep compassion in you for something or someone, or it can mean God is touching a wound in your heart that needs healing. It can also mean intercession — praying and feeling what God feels for a situation.",
+  everydayMeaning:"In everyday life, crying in a dream usually means an emotion you have been suppressing in real life is finding its way out while you sleep. You might not even know what you are sad about until you wake up and think about it. It is not weakness — it is your heart being honest about something.",
+  reflect:'What were you crying about? Did it feel like grief, joy, or prayer? Ask God if He was trying to help you feel something you have been pushing away.'},
+{emoji:'🤝',name:'Making an Agreement',cat:'actions',meanings:"A covenant • A new partnership • Something being confirmed",
+  bibleMeaning:"Covenants and agreements are extremely serious in the Bible — God made covenants with Noah, Abraham, and David. A handshake or agreement in a dream might mean God is confirming something He has promised you, or that a new partnership or alliance is being established with His blessing.",
+  everydayMeaning:"In everyday life, making an agreement in a dream might mean you are about to enter a new commitment — a friendship, a team, a responsibility, or a decision. If the agreement felt right and peaceful, it is likely a good thing. If it felt pressured or wrong, be careful. Not every agreement that comes along is meant for you.",
+  reflect:'Who were you agreeing with and how did it feel? Did anyone else see the agreement being made?'},
+{emoji:'🎁',name:'Receiving a Gift',cat:'actions',meanings:"A gift from God • A talent being given • Something deposited into your life",
+  bibleMeaning:"Every good gift comes from God (James 1:17). In the Bible, gifts often represent spiritual gifts, callings, or divine assignments. Receiving a gift in a dream might mean God is formally giving you something — a gift, a calling, a new level of anointing. The most important detail is what the gift actually was.",
+  everydayMeaning:"In everyday life, receiving a gift in a dream often means you are about to receive something good — recognition, encouragement, an unexpected blessing, or an opportunity. If the gift is wrapped, something wonderful is coming that you cannot fully see yet. If it is unwrapped, you might already have what God is giving you — you just have not noticed it yet.",
+  reflect:'What was the gift? Was it wrapped or unwrapped? Who gave it to you, and how did receiving it feel?'},
+// OBJECTS
+{emoji:'🔑',name:'Key',cat:'objects',meanings:"Access • Authority • God unlocking something new for you",
+  bibleMeaning:"Keys in the Bible represent authority and access. Jesus gave Peter the keys of the kingdom, meaning the authority to open things spiritually. A key in a dream almost always means God is giving you access to something — a new level of understanding, a breakthrough, or the ability to open doors for others.",
+  everydayMeaning:"In everyday life, a key means you have what you need to get in somewhere. If you find a key in your dream, you might be about to discover something important — an answer, an opportunity, or a hidden ability inside yourself. If you lose a key, you might feel like you are missing what you need to move forward.",
+  reflect:'What were you unlocking? Or did you lose the key? What area of your life might God be opening right now?'},
+{emoji:'⚔️',name:'Sword',cat:'objects',meanings:"God's Word • Truth • Spiritual battle • Authority to speak truth",
+  bibleMeaning:"The sword of the Spirit is God's Word — the Bible. The Bible is described as sharper than any two-edged sword (Hebrews 4:12). A sword in a dream almost always means God is arming you with truth to cut through confusion, fight spiritual battles, and speak clearly in a situation where truth is needed.",
+  everydayMeaning:"In everyday life, a sword represents precision and decisiveness. It might mean a situation in your life requires you to be clear, direct, and to speak truth even when it is uncomfortable. It could also mean you need to cut something off — a habit, a relationship, or a way of thinking — that is no longer serving you well.",
+  reflect:'Were you using the sword, holding it, or being threatened by it? What truth might God be asking you to speak or stand in?'},
+{emoji:'🛡️',name:'Shield',cat:'objects',meanings:"Protection • Faith as your defense • God covering you",
+  bibleMeaning:"The shield of faith is one of the pieces of the armor of God (Ephesians 6). In battle, a shield blocks arrows. In dreams, a shield means your faith in God is protecting you from things trying to wound you. It is a sign that God's protection is real and active in your life.",
+  everydayMeaning:"In everyday life, a shield in a dream means something is defending you — or that you need to put your defenses up. It might mean you are feeling vulnerable in a situation and your heart is looking for protection. It is a reminder to stay close to God, because He is your shield.",
+  reflect:'Who was carrying the shield — you or someone else? What did it feel like it was protecting you from?'},
+{emoji:'🔥',name:'Fire',cat:'objects',meanings:"The Holy Spirit • God's presence • Purification • Testing",
+  bibleMeaning:"Fire is one of the most powerful God-symbols in the Bible. God appeared to Moses in a burning bush. The Holy Spirit descended on the disciples as tongues of fire. Fire purifies — it burns away what is not real and leaves what is solid. Fire in a dream connected to the Holy Spirit feels warm and draws you in. Fire as judgment or trial feels consuming.",
+  everydayMeaning:"In everyday life, fire in a dream can represent passion, intensity, or destruction depending on the context. Controlled fire — like a candle or fireplace — might mean warmth, intimacy, and presence. Uncontrolled fire — like a wildfire — might mean something feels out of control or destroying things in your life.",
+  reflect:'Was the fire warm and inviting, or scary and destructive? Was anything being burned? How did it make you feel?'},
+{emoji:'💡',name:'Light',cat:'objects',meanings:"Understanding • Revelation • Truth being revealed • Guidance",
+  bibleMeaning:"God is light — and in Him there is no darkness (1 John 1:5). In the Bible, light represents truth, understanding, and the presence of God. Light appearing in a dream almost always means God is revealing something — turning on a light in an area of your life that has been dark or confusing.",
+  everydayMeaning:"In everyday life, a sudden light in a dream might mean an answer to something you have been confused about is coming. A lamp or flashlight in the dark means you have just enough guidance to take the next step, even if you cannot see the whole path yet. A bright room full of light means clarity and peace.",
+  reflect:"Where was the light coming from? What did it shine on? What's been dark or confusing in your life that God might be lighting up?"},
+{emoji:'📖',name:'Book',cat:'objects',meanings:"Knowledge • The Bible • Your life story • A calling to learn or teach",
+  bibleMeaning:"Books in the Bible represent records, wisdom, and God's plans. There are books in heaven — the Book of Life, the Lamb's Book. Being given a book in a dream might mean God is sharing His wisdom with you, showing you part of your assignment, or calling you to study and teach His Word.",
+  everydayMeaning:"In everyday life, a book in a dream might represent an important lesson you need to learn, a story you need to tell, or knowledge you have not fully explored yet. If the book is blank, God might be saying: your story is still being written. If it is already written, He might be showing you that your path was planned before you were born.",
+  reflect:'Was the book already written or were you writing in it? Were you reading it, being given it, or looking for it?'},
+{emoji:'💎',name:'Jewel / Treasure',cat:'objects',meanings:"Your worth to God • A hidden gift • Something rare and precious",
+  bibleMeaning:"In the Bible, God calls His people jewels and precious stones. The New Jerusalem is described as being built with every kind of precious stone. A jewel in a dream might mean God is showing you your value to Him, or that something rare and precious has been placed inside you that others have not noticed yet.",
+  everydayMeaning:"In everyday life, finding treasure in a dream almost always feels exciting — because something valuable is being discovered. It might mean a gift, a talent, or an opportunity is about to be uncovered. Hidden treasure might mean something amazing is closer than you think, but it requires you to dig a little.",
+  reflect:'Was the treasure hidden or in plain sight? Was it yours to keep, or were you finding it for someone else?'},
+{emoji:'🏆',name:'Trophy / Crown',cat:'objects',meanings:"Victory • Reward • God's recognition • Honor coming",
+  bibleMeaning:"Crowns in the Bible are symbols of royalty, honor, and reward. The Bible promises crowns to those who finish their race faithfully. A crown or trophy in a dream might mean God is saying: what you are going through is not in vain — a reward is coming. It is also a reminder that believers are royalty in God's kingdom.",
+  everydayMeaning:"In everyday life, a trophy or crown means you have done something worth celebrating. If you receive it in a dream, something you have been working hard on — or enduring faithfully — is about to be recognized. If someone else receives it, you might be feeling overlooked or like your efforts are going unnoticed.",
+  reflect:'Did you receive the crown, or were you watching someone else get it? How did that feel?'},
+{emoji:'🚗',name:'Car / Vehicle',cat:'objects',meanings:"The direction of your life • Who is guiding you • Your pace",
+  bibleMeaning:"In the Bible, chariots and vehicles were often associated with power, direction, and the speed of God's movement. Elijah was taken up in a chariot of fire. Vehicles in dreams often represent your life's direction — and who is behind the wheel matters spiritually.",
+  everydayMeaning:"In everyday life, cars in dreams are about control and direction. If you are driving confidently, you feel in control of your life. If someone else is driving and you are uncomfortable, someone else might have too much influence over your decisions. If the car is out of control or the brakes do not work, something in your life feels like it is heading somewhere you did not choose.",
+  reflect:'Who was driving? Were you going fast or slow? Did the car go where you wanted it to go?'},
+// CARTOONS & FANTASY
+{emoji:'🦸',name:'Superhero',cat:'cartoons',meanings:"Strength from God • A calling to protect others • Power and authority",
+  bibleMeaning:"God gives His people supernatural power through the Holy Spirit — not to show off, but to help others and advance His Kingdom. Dreaming of being a superhero might mean God is reminding you that the same Spirit that raised Jesus from the dead lives inside you. Your power is not your own — it is His.",
+  everydayMeaning:"In everyday life, dreaming of being a superhero usually means you want to make a difference — you feel called to do something bigger than yourself. It might also mean you feel the pressure of trying to be everything for everyone, which is exhausting. The difference is: superheroes in God's Kingdom rely on His power, not their own.",
+  reflect:'What was your superpower? Were you using it to help others? How might that power show up in your real life?'},
+{emoji:'🐉',name:'Dragon',cat:'cartoons',meanings:"The enemy • Evil power • Something trying to intimidate you",
+  bibleMeaning:"The Bible directly calls Satan the great dragon (Revelation 12). A dragon in a dream is usually a symbol of the enemy or a powerful demonic force. But here is the key thing: dragons in the Bible are always defeated. Michael defeated the dragon. In Revelation, the dragon loses. If a dragon shows up in your dream, God is probably showing you the enemy so you know what to pray against — and so you know God wins.",
+  everydayMeaning:"In everyday life, a dragon represents something that feels enormous, powerful, and terrifying — something you feel you could never overcome alone. It might be a fear, a challenge, or a person who seems to have power over you. The important thing is: in your dream, did you have any power at all? That is a clue.",
+  reflect:'Were you afraid of the dragon, fighting it, or watching from a safe place? Did you have any power against it?'},
+{emoji:'🧙',name:'Wizard / Witch',cat:'cartoons',meanings:"False power • Something counterfeit • Deception dressed up as supernatural",
+  bibleMeaning:"God is very clear in the Bible: all power belongs to Him, and counterfeit spiritual power — sorcery, witchcraft, divination — is something He tells His people to avoid completely. If a wizard or witch appears in your dream, God might be warning you about something that appears spiritual or supernatural but does not come from Him.",
+  everydayMeaning:"In everyday life, this symbol might relate to content you are consuming — games, shows, or books with heavy occult themes — that your spirit is picking up on. It might also represent someone in your life who seems to have a strange, controlling kind of influence over you that does not feel right.",
+  reflect:'Was the dark magic being used on you, or were you the one using it? What might God be warning you to stay away from?'},
+{emoji:'🧚',name:'Fairy / Magical Creature',cat:'cartoons',meanings:"Childlike wonder • The supernatural • Something beautiful but possibly misleading",
+  bibleMeaning:"God's supernatural gifts are real — prophecy, healing, miracles, tongues. But there is also a counterfeit supernatural world. Fairies and magical creatures can represent the real wonder of the spiritual world, or they can represent things that lure you toward counterfeit spirituality. Ask God which one this is for you.",
+  everydayMeaning:"In everyday life, a fairy or magical creature might represent your imagination, your sense of wonder, or a desire for something more magical and exciting than ordinary life. God made you to experience supernatural things — just make sure they are connected to Him and not to counterfeits.",
+  reflect:'Did the fairy feel trustworthy and safe, or was it luring you somewhere? Did it remind you of anything in your real life?'},
+{emoji:'🤖',name:'Robot',cat:'cartoons',meanings:"Going through the motions • Hiding feelings • Being on autopilot",
+  bibleMeaning:"God said of some religious people: they honor Me with their lips, but their hearts are far from Me. A robot does all the right things but has no heart, no feeling, no life. A robot in a dream might be a warning from God: you are going through spiritual motions — church, prayer, Bible reading — without your heart actually being present.",
+  everydayMeaning:"In everyday life, a robot might represent feeling like you are on autopilot — doing what is expected of you without feeling anything real. It might also represent someone around you who seems to follow rules and routines but does not seem to have genuine emotions or care about the people around them.",
+  reflect:'Was the robot you, or someone else? What part of your life might feel mechanical or empty right now?'},
+{emoji:'🦄',name:'Unicorn',cat:'cartoons',meanings:"Something rare and special • A unique calling • An impossible thing becoming real",
+  bibleMeaning:"Uniqueness and rarity are celebrated in Scripture — God says His people are a peculiar treasure, a royal priesthood. A unicorn might represent the rare and precious calling God has placed on your life — something that does not fit any ordinary category and that most people have never seen before.",
+  everydayMeaning:"In everyday life, a unicorn in a dream usually means something that seemed too good or too rare to be real might actually be coming into your life. It could represent a one-of-a-kind opportunity, relationship, or identity that God is showing you belongs to you.",
+  reflect:'Was the unicorn wild or tame? Did it come to you, or did you chase it? What impossible or rare thing might God be making real for you?'},
+{emoji:'🧟',name:'Zombie',cat:'cartoons',meanings:"Spiritual emptiness • Going through motions without life • A warning about drifting",
+  bibleMeaning:"The Bible talks about people who are physically alive but spiritually dead — going through the motions of religion without real relationship with God. Zombies are the perfect picture of this: existing but not truly living. A zombie in a dream might be a warning: do not let your faith become empty routine.",
+  everydayMeaning:"In everyday life, zombies can represent feeling numb, burnt out, or emotionally empty — going through each day without really feeling alive. It might mean you or someone around you is disconnected from what gives life real meaning. God's answer to every zombie season is His living water.",
+  reflect:'Were the zombies chasing you, or were you among them? What part of your life might feel empty or lifeless right now?'},
+{emoji:'👾',name:'Inside a Video Game',cat:'cartoons',meanings:"Life feeling unreal • A challenge to overcome • Second chances • Not taking something seriously",
+  bibleMeaning:"God takes our lives seriously — He knit us together, has plans for us, and says our days are written in His book. A video game dream might be a gentle nudge: something in your life is real and important, not a game. At the same time, God's mercy is like infinite extra lives — you always get another chance with Him.",
+  everydayMeaning:"In everyday life, dreaming you are inside a video game might mean you are treating a real situation too casually, or that you feel like you keep repeating the same level of a problem over and over. The type of game matters: a fighting game might mirror real conflict, a maze might mirror confusion, a racing game might mirror competition or urgency.",
+  reflect:'What type of game was it? Were you winning or stuck on a hard level? What does that mirror in your real life?'},
+{emoji:'🧜',name:'Mermaid',cat:'cartoons',meanings:"Something luring you • Deep emotion • A pull toward the unknown",
+  bibleMeaning:"Water creatures represent the deep — the spiritual unknown. Something half-human and half-aquatic represents dual nature: part of you belongs above the surface (in the light, with God), and part of you is being drawn deep below (into the unknown, emotions, or the spiritual world). God wants all of you above the surface, walking with Him.",
+  everydayMeaning:"In everyday life, a mermaid in a dream might represent something — or someone — that is drawing you away from what is familiar and safe. It could be a temptation, a fascination, or something that seems beautiful and exciting but could pull you somewhere you were not meant to go.",
+  reflect:'Was the mermaid trying to pull you under, or were you swimming freely? Did the deep water feel exciting or dangerous?'}
+];
+let symCurCat='all';
+let customSymbols=JSON.parse(localStorage.getItem('dv_custom_symbols')||'[]');
+
+function switchGameView(v){
+  document.getElementById('gview-play').style.display=v==='play'?'':'none';
+  document.getElementById('gview-lib').style.display=v==='lib'?'':'none';
+  document.getElementById('gsubnav-play').classList.toggle('active',v==='play');
+  document.getElementById('gsubnav-lib').classList.toggle('active',v==='lib');
+  if(v==='lib')renderSymLib();
+}
+function setCat(cat,el){
+  symCurCat=cat;
+  document.querySelectorAll('.sym-cat-chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  renderSymLib();
+}
+function filterSymLib(){renderSymLib();}
+function renderSymLib(){
+  const q=(document.getElementById('symLibQ').value||'').trim().toLowerCase();
+  const allSyms=[...SYM_LIB,...customSymbols.map(c=>({...c,cat:'custom'}))];
+  let results=allSyms;
+  if(symCurCat==='custom')results=customSymbols.map(c=>({...c,cat:'custom'}));
+  else if(symCurCat!=='all')results=SYM_LIB.filter(s=>s.cat===symCurCat);
+  if(q)results=results.filter(s=>s.name.toLowerCase().includes(q)||(s.meanings||'').toLowerCase().includes(q)||(s.bibleMeaning||s.explain||'').toLowerCase().includes(q)||(s.everydayMeaning||'').toLowerCase().includes(q));
+  const container=document.getElementById('symLibResults');
+  // Always show custom creator card first
+  const creatorHTML=buildCustomCreator();
+  if(!results.length){container.innerHTML=creatorHTML+'<div class="sym-no-results">No symbols found. Try a different word! 🔍</div>';return;}
+  container.innerHTML=creatorHTML+`<p style="font-size:.73rem;color:var(--cloud-light);margin-bottom:.6rem;">${results.length} symbol${results.length!==1?'s':''} — tap any to expand 👇</p>`;
+  results.forEach(function(s){buildSymCard(s,container);});
+}
+function buildCustomCreator(){
+  return `<div class="custom-creator" id="customCreatorCard">
+    <div style="font-family:'Fredoka One',cursive;font-size:1rem;color:var(--moon-gold);margin-bottom:.6rem;">✏️ Add Your Own Symbol</div>
+    <p style="font-size:.78rem;color:var(--cloud-light);margin-bottom:.75rem;line-height:1.6;">See a symbol in your dream that is not in the list? Add it here! Write what it means to YOU. God speaks personally — your symbols matter. 🕊️</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.5rem;">
+      <div><label class="cfl">Emoji or Symbol</label><input type="text" id="cs-emoji" placeholder="🌈" maxlength="4" class="cfinput" style="font-size:1.3rem;text-align:center;"></div>
+      <div><label class="cfl">Symbol Name</label><input type="text" id="cs-name" placeholder="e.g. Rainbow" class="cfinput"></div>
+    </div>
+    <div style="margin-bottom:.5rem;"><label class="cfl">What it might mean (short)</label><input type="text" id="cs-meanings" placeholder="e.g. God's promise • Hope after a storm" class="cfinput"></div>
+    <div style="margin-bottom:.5rem;"><label class="cfl">📖 What it means in the Bible</label><textarea id="cs-bible" rows="2" class="cfinput" placeholder="What does the Bible say about this symbol? (optional)"></textarea></div>
+    <div style="margin-bottom:.5rem;"><label class="cfl">🌍 What it means in everyday life</label><textarea id="cs-everyday" rows="2" class="cfinput" placeholder="What does this symbol usually mean in normal life?"></textarea></div>
+    <div style="margin-bottom:.75rem;"><label class="cfl">🤔 A question to think about</label><textarea id="cs-reflect" rows="2" class="cfinput" placeholder="What question would you ask yourself about this symbol?"></textarea></div>
+    <button class="save-btn" onclick="saveCustomSymbol()" style="font-size:.85rem;padding:.5rem 1.2rem;max-width:none;width:100%;">💾 Save My Symbol</button>
+  </div>`;
+}
+function saveCustomSymbol(){
+  const emoji=document.getElementById('cs-emoji').value.trim()||'⭐';
+  const name=document.getElementById('cs-name').value.trim();
+  if(!name){showToast('Give your symbol a name first!');return;}
+  const sym={
+    id:Date.now(),
+    emoji,name,
+    meanings:document.getElementById('cs-meanings').value.trim()||'My own meaning',
+    bibleMeaning:document.getElementById('cs-bible').value.trim()||'',
+    everydayMeaning:document.getElementById('cs-everyday').value.trim()||'',
+    reflect:document.getElementById('cs-reflect').value.trim()||'What does this symbol mean to you personally?',
+    cat:'custom',custom:true
+  };
+  customSymbols.unshift(sym);
+  localStorage.setItem('dv_custom_symbols',JSON.stringify(customSymbols));
+  ['cs-emoji','cs-name','cs-meanings','cs-bible','cs-everyday','cs-reflect'].forEach(id=>{document.getElementById(id).value='';});
+  showToast('✅ Symbol saved to your library!');
+  renderSymLib();
+}
+function deleteCustomSymbol(id){
+  customSymbols=customSymbols.filter(s=>s.id!==id);
+  localStorage.setItem('dv_custom_symbols',JSON.stringify(customSymbols));
+  renderSymLib();
+  showToast('Symbol deleted.');
+}
+function buildSymCard(s,container){
+  var cardId='sc_'+Math.random().toString(36).slice(2,8);
+  var isCustom=s.custom||s.cat==='custom';
+  var catLabel={animals:'🐾 Animal',places:'🏠 Place',people:'👤 Person',actions:'🏃 Action',objects:'🔑 Object',cartoons:'🎨 Cartoon',custom:'✏️ My Symbol'}[s.cat]||'✏️ My Symbol';
+  var div=document.createElement('div');
+  div.className='sym-card'+(isCustom?' custom-sym-card':'');
+  var safeEmoji=s.emoji;
+  var safeName=(s.name||'').replace(/'/g,"&#39;");
+  var safeMeanings=(s.meanings||'').replace(/'/g,"&#39;").replace(/"/g,"&quot;");
+  var bodyHTML='<div class="sym-card-body" id="'+cardId+'">';
+  // Bible meaning section
+  if(s.bibleMeaning){
+    bodyHTML+='<div class="sym-body-row">'
+      +'<div class="sym-body-label" style="color:var(--moon-gold);">📖 What It Means in the Bible</div>'
+      +'<div class="sym-bible">'+s.bibleMeaning+'</div>'
+      +'</div>';
+  }
+  // Everyday meaning section
+  if(s.everydayMeaning){
+    bodyHTML+='<div class="sym-body-row">'
+      +'<div class="sym-body-label" style="color:var(--teal);">🌍 What It Means in Everyday Life</div>'
+      +'<div class="sym-body-text" style="background:rgba(58,140,110,.12);border-left:3px solid var(--teal);padding:.4rem .7rem;border-radius:0 8px 8px 0;line-height:1.65;">'+s.everydayMeaning+'</div>'
+      +'</div>';
+  }
+  // Fallback for old explain field
+  if(!s.bibleMeaning&&!s.everydayMeaning&&s.explain){
+    bodyHTML+='<div class="sym-body-row"><div class="sym-body-label" style="color:var(--cloud-blue);">In Simple Words</div><div class="sym-body-text" style="font-style:italic;color:var(--cloud-light);">'+s.explain+'</div></div>';
+  }
+  if(s.reflect){
+    bodyHTML+='<div class="sym-body-row">'
+      +'<div class="sym-body-label" style="color:var(--dove-purple);">🤔 Think About It</div>'
+      +'<div class="sym-reflect">'+s.reflect+'</div>'
+      +'</div>';
+  }
+  var btnRow='<div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.6rem;">'
+    +'<button class="sym-send-btn" onclick="event.stopPropagation();sendSymToJournal(\''+safeEmoji+'\',\''+safeName+'\',\''+safeMeanings+'\')">✍️ Add to Journal</button>';
+  if(isCustom&&s.id){
+    btnRow+='<button onclick="event.stopPropagation();deleteCustomSymbol('+s.id+')" style="background:rgba(184,58,82,.2);border:1px solid var(--blanket-red);color:#fff;border-radius:8px;padding:.28rem .75rem;font-size:.73rem;font-family:Nunito;font-weight:700;cursor:pointer;">🗑 Delete</button>';
+  }
+  btnRow+='</div>';
+  bodyHTML+=btnRow+'</div>';
+  div.innerHTML='<div class="sym-card-head"><span class="sym-card-emoji">'+s.emoji+'</span><div><span class="sym-card-name">'+s.name+'</span><span class="sym-card-cat">'+catLabel+(isCustom?' ★':'')+'</span></div></div>'
+    +'<div class="sym-card-meanings">'+s.meanings+'</div>'
+    +bodyHTML;
+  div.onclick=function(){toggleSymCard(cardId);};
+  container.appendChild(div);
+}
+function toggleSymCard(id){var el=document.getElementById(id);if(el)el.classList.toggle('open');}
+function sendSymToJournal(emoji,name,meanings){
+  var line=emoji+' '+name+': '+meanings;
+  var el=document.getElementById('e-story');
+  if(el)el.value=(el.value?el.value+'\n':'')+line;
+  showTab('t-new');
+  showToast('Symbol added to your journal entry!');
+}
+
+
+window.addEventListener('load',()=>{
+  initCanvas('main','mainCanvas',290,null);
+  initCanvas('dp','dpCanvas',210,'#FFF8E8');
+  if(kidName){document.getElementById('kidName').value=kidName;document.getElementById('hubGreet').textContent=`✨ ${kidName}'s Dream Journal ✨`;}
+  document.getElementById('e-date').value=new Date().toLocaleDateString();
+  fillDpSel();buildQList();resetSymRows();
+});
+window.addEventListener('resize',()=>{
+  const mc=canvases.main;if(mc.el){const data=mc.el.toDataURL();mc.el.width=mc.el.offsetWidth||580;const img=new Image();img.onload=()=>mc.ctx.drawImage(img,0,0);img.src=data;}
+});
+</script>
+</body>
+</html>
