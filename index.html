@@ -37,7 +37,7 @@ body{background:var(--night);font-family:'Nunito',sans-serif;color:var(--text-wh
 .btn-primary:disabled{opacity:.6;cursor:default;transform:none;}
 
 /* AUTH */
-#auth{min-height:100vh;align-items:center;justify-content:center;text-align:center;position:relative;z-index:1;padding:2rem;}
+#auth,#resetPw{min-height:100vh;align-items:center;justify-content:center;text-align:center;position:relative;z-index:1;padding:2rem;}
 .auth-box{position:relative;z-index:2;max-width:380px;width:100%;background:rgba(21,37,80,.9);border:1px solid rgba(74,123,183,.35);border-radius:20px;padding:1.8rem 1.6rem;backdrop-filter:blur(8px);}
 .auth-note{font-size:.8rem;color:var(--cloud-light);line-height:1.6;margin:.5rem 0 1.1rem;}
 .auth-input{width:100%;background:rgba(14,29,64,.8);border:1.5px solid rgba(74,123,183,.4);border-radius:10px;padding:.65rem .9rem;color:var(--text-white);font-family:'Nunito';font-size:.9rem;outline:none;margin-bottom:.65rem;transition:border-color .2s;}
@@ -250,8 +250,21 @@ body{background:var(--night);font-family:'Nunito',sans-serif;color:var(--text-wh
     <input type="email" id="authEmail" class="auth-input" placeholder="Parent email" autocomplete="email">
     <input type="password" id="authPassword" class="auth-input" placeholder="Password" autocomplete="current-password" onkeydown="if(event.key==='Enter')handleAuthSubmit()">
     <button class="btn-primary" id="authSubmitBtn" style="width:100%;font-size:1.05rem;padding:.7rem 1rem;" onclick="handleAuthSubmit()">Sign In</button>
+    <button class="auth-toggle" id="forgotBtn" onclick="setAuthMode('forgot')">Forgot password?</button>
     <button class="auth-toggle" id="authToggleBtn" onclick="toggleAuthMode()">Need an account? Create one</button>
     <span class="auth-msg" id="authMsg"></span>
+  </div>
+</div>
+
+<!-- RESET PASSWORD -->
+<div id="resetPw" class="screen">
+  <div class="auth-box">
+    <h1 style="font-family:'Fredoka One',cursive;font-size:1.4rem;color:var(--moon-gold);margin-bottom:.3rem;">🔑 Set New Password</h1>
+    <p class="auth-note">Choose a new password for your account.</p>
+    <input type="password" id="newPassword" class="auth-input" placeholder="New password" autocomplete="new-password">
+    <input type="password" id="newPassword2" class="auth-input" placeholder="Confirm new password" autocomplete="new-password" onkeydown="if(event.key==='Enter')handleSetNewPassword()">
+    <button class="btn-primary" id="resetPwBtn" style="width:100%;font-size:1.05rem;padding:.7rem 1rem;" onclick="handleSetNewPassword()">Set New Password</button>
+    <span class="auth-msg" id="resetPwMsg"></span>
   </div>
 </div>
 
@@ -915,19 +928,52 @@ let authMode='signin';
 
 function showAuthMsg(text,type){const el=document.getElementById('authMsg');if(el){el.textContent=text||'';el.className='auth-msg'+(type?' '+type:'');}}
 
+const AUTH_NOTE_DEFAULT='A parent or guardian signs in once so dreams are safely saved and never lost — even if the browser is cleared or a different device is used.';
+const AUTH_NOTE_FORGOT='Enter the email on your account and we\'ll send a link to reset your password.';
+
 function setAuthMode(mode){
   authMode=mode;
-  document.getElementById('authSubmitBtn').textContent=authMode==='signup'?'Create Account':'Sign In';
-  document.getElementById('authToggleBtn').textContent=authMode==='signup'?'Already have an account? Sign in':'Need an account? Create one';
-  document.getElementById('authPassword').autocomplete=authMode==='signup'?'new-password':'current-password';
+  const pwField=document.getElementById('authPassword');
+  const forgotBtn=document.getElementById('forgotBtn');
+  showAuthMsg('');
+  if(mode==='forgot'){
+    pwField.style.display='none';
+    document.getElementById('authSubmitBtn').textContent='Send Reset Link';
+    document.getElementById('authToggleBtn').textContent='← Back to sign in';
+    forgotBtn.style.display='none';
+    document.getElementById('authNote').textContent=AUTH_NOTE_FORGOT;
+  }else{
+    pwField.style.display='';
+    pwField.autocomplete=mode==='signup'?'new-password':'current-password';
+    document.getElementById('authSubmitBtn').textContent=mode==='signup'?'Create Account':'Sign In';
+    document.getElementById('authToggleBtn').textContent=mode==='signup'?'Already have an account? Sign in':'Need an account? Create one';
+    forgotBtn.style.display=mode==='signup'?'none':'';
+    document.getElementById('authNote').textContent=AUTH_NOTE_DEFAULT;
+  }
 }
-function toggleAuthMode(){setAuthMode(authMode==='signin'?'signup':'signin');showAuthMsg('');}
+function toggleAuthMode(){
+  if(authMode==='forgot'){setAuthMode('signin');return;}
+  setAuthMode(authMode==='signin'?'signup':'signin');
+}
 
 async function handleAuthSubmit(){
   const email=document.getElementById('authEmail').value.trim();
+  const btn=document.getElementById('authSubmitBtn');
+
+  if(authMode==='forgot'){
+    if(!email){showAuthMsg('Enter your email first.','err');return;}
+    btn.disabled=true;
+    showAuthMsg('Sending reset link…','');
+    const{error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});
+    btn.disabled=false;
+    if(error){showAuthMsg(error.message,'err');return;}
+    showAuthMsg('Check your inbox for a password reset link!','ok');
+    return;
+  }
+
   const password=document.getElementById('authPassword').value;
   if(!email||!password){showAuthMsg('Enter your email and password.','err');return;}
-  const btn=document.getElementById('authSubmitBtn');btn.disabled=true;
+  btn.disabled=true;
   if(authMode==='signup'){
     showAuthMsg('Creating account…','');
     const{data,error}=await sb.auth.signUp({email,password});
@@ -948,13 +994,31 @@ async function handleAuthSubmit(){
   }
 }
 
+async function handleSetNewPassword(){
+  const p1=document.getElementById('newPassword').value;
+  const p2=document.getElementById('newPassword2').value;
+  const showMsg=(text,type)=>{const el=document.getElementById('resetPwMsg');if(el){el.textContent=text||'';el.className='auth-msg'+(type?' '+type:'');}};
+  if(!p1||!p2){showMsg('Enter and confirm your new password.','err');return;}
+  if(p1!==p2){showMsg('Passwords do not match.','err');return;}
+  if(p1.length<6){showMsg('Password must be at least 6 characters.','err');return;}
+  const btn=document.getElementById('resetPwBtn');btn.disabled=true;
+  const{error}=await sb.auth.updateUser({password:p1});
+  btn.disabled=false;
+  if(error){showMsg(error.message,'err');return;}
+  showMsg('Password updated! Taking you to your journal…','ok');
+  setTimeout(()=>showScreen('cover'),1200);
+}
+
 async function handleSignOut(){
   await sb.auth.signOut();
   location.reload();
 }
 
+const isRecoveryFlow=location.hash.includes('type=recovery');
+
 sb.auth.onAuthStateChange((event,session)=>{
   currentUser=session?.user??null;
+  if(event==='PASSWORD_RECOVERY'){showScreen('resetPw');return;}
   if(currentUser)showScreen('cover');
 });
 
@@ -977,7 +1041,7 @@ function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classL
 (async()=>{
   const{data:{session}}=await sb.auth.getSession();
   currentUser=session?.user??null;
-  if(currentUser)showScreen('cover');
+  if(currentUser&&!isRecoveryFlow)showScreen('cover');
 })();
 
 // ── TABS
