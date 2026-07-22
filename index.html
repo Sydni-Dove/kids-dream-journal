@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dream & Vision Adventures With God</title>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
 :root{--night:#0D1B3E;--deep-navy:#152550;--cloud-blue:#4A7BB7;--moon-gold:#E8B84B;--star-bright:#FFD700;--blanket-red:#B83A52;--dove-purple:#5B4A8A;--text-white:#F0F6FF;--cloud-light:#8AAED4;--teal:#3A8C6E;}
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -33,6 +34,21 @@ body{background:var(--night);font-family:'Nunito',sans-serif;color:var(--text-wh
 .name-field input::placeholder{color:rgba(13,27,62,.4);}
 .btn-primary{background:linear-gradient(135deg,var(--cloud-blue),var(--dove-purple));color:#fff;font-family:'Fredoka One',cursive;font-size:1.25rem;border:none;border-radius:50px;padding:.85rem 2.5rem;cursor:pointer;box-shadow:0 6px 24px rgba(74,123,183,.4);transition:transform .15s;}
 .btn-primary:hover{transform:translateY(-3px);}
+.btn-primary:disabled{opacity:.6;cursor:default;transform:none;}
+
+/* AUTH */
+#auth{min-height:100vh;align-items:center;justify-content:center;text-align:center;position:relative;z-index:1;padding:2rem;}
+.auth-box{position:relative;z-index:2;max-width:380px;width:100%;background:rgba(21,37,80,.9);border:1px solid rgba(74,123,183,.35);border-radius:20px;padding:1.8rem 1.6rem;backdrop-filter:blur(8px);}
+.auth-note{font-size:.8rem;color:var(--cloud-light);line-height:1.6;margin:.5rem 0 1.1rem;}
+.auth-input{width:100%;background:rgba(14,29,64,.8);border:1.5px solid rgba(74,123,183,.4);border-radius:10px;padding:.65rem .9rem;color:var(--text-white);font-family:'Nunito';font-size:.9rem;outline:none;margin-bottom:.65rem;transition:border-color .2s;}
+.auth-input:focus{border-color:var(--moon-gold);}
+.auth-msg{display:block;font-size:.78rem;margin-top:.7rem;min-height:1.1em;}
+.auth-msg.err{color:#ff9b9b;}
+.auth-msg.ok{color:#7fd9b6;}
+.auth-toggle{background:none;border:none;color:var(--cloud-light);font-family:'Nunito';font-weight:700;font-size:.78rem;cursor:pointer;margin-top:.9rem;text-decoration:underline;}
+.auth-toggle:hover{color:var(--moon-gold);}
+.signout-link{background:none;border:none;color:var(--cloud-light);font-family:'Nunito';font-size:.72rem;cursor:pointer;text-decoration:underline;margin-top:.3rem;}
+.signout-link:hover{color:var(--moon-gold);}
 
 /* HUB */
 #hub{min-height:100vh;position:relative;z-index:1;padding:1.2rem .8rem 3rem;align-items:center;}
@@ -226,8 +242,21 @@ body{background:var(--night);font-family:'Nunito',sans-serif;color:var(--text-wh
 <body>
 <canvas id="starfield"></canvas>
 
+<!-- AUTH -->
+<div id="auth" class="screen active">
+  <div class="auth-box">
+    <h1 style="font-family:'Fredoka One',cursive;font-size:1.4rem;color:var(--moon-gold);margin-bottom:.3rem;">🌙 Dream Journal</h1>
+    <p class="auth-note" id="authNote">A parent or guardian signs in once so dreams are safely saved and never lost — even if the browser is cleared or a different device is used.</p>
+    <input type="email" id="authEmail" class="auth-input" placeholder="Parent email" autocomplete="email">
+    <input type="password" id="authPassword" class="auth-input" placeholder="Password" autocomplete="current-password" onkeydown="if(event.key==='Enter')handleAuthSubmit()">
+    <button class="btn-primary" id="authSubmitBtn" style="width:100%;font-size:1.05rem;padding:.7rem 1rem;" onclick="handleAuthSubmit()">Sign In</button>
+    <button class="auth-toggle" id="authToggleBtn" onclick="toggleAuthMode()">Need an account? Create one</button>
+    <span class="auth-msg" id="authMsg"></span>
+  </div>
+</div>
+
 <!-- COVER -->
-<div id="cover" class="screen active">
+<div id="cover" class="screen">
   <div class="moon"></div>
   <div class="sparkle" style="top:82px;left:55px;font-size:1.3rem;animation-delay:.2s;">⭐</div>
   <div class="sparkle" style="top:135px;right:110px;font-size:.9rem;animation-delay:.9s;">✨</div>
@@ -253,7 +282,8 @@ body{background:var(--night);font-family:'Nunito',sans-serif;color:var(--text-wh
 <div id="hub" class="screen">
   <div class="hub-header">
     <h1 id="hubGreet">✨ My Dream Journal ✨</h1>
-    <p>Your entries save automatically — they'll be here when you return! ✦</p>
+    <p>Your entries save safely to the cloud — they'll be here when you return! ✦</p>
+    <button class="signout-link" onclick="handleSignOut()">🔒 Parent sign out</button>
   </div>
   <div class="nav-tabs">
     <button class="tab-btn active"  onclick="showTab('t-learn')">📖 Learn</button>
@@ -876,15 +906,79 @@ function initSF(){sf.width=window.innerWidth;sf.height=window.innerHeight;stars=
 function animSF(t){sctx.clearRect(0,0,sf.width,sf.height);stars.forEach(s=>{const a=.3+.7*Math.abs(Math.sin(t*s.sp+s.ph));sctx.beginPath();sctx.arc(s.x,s.y,s.r,0,Math.PI*2);sctx.fillStyle=`rgba(255,215,0,${a})`;sctx.fill();});requestAnimationFrame(animSF);}
 initSF();requestAnimationFrame(animSF);window.addEventListener('resize',initSF);
 
+// ── SUPABASE
+const SUPABASE_URL='https://jnlvvlkwskidloripvtp.supabase.co';
+const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpubHZ2bGt3c2tpZGxvcmlwdnRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2ODU4MTYsImV4cCI6MjA4OTI2MTgxNn0.R5zXv54T4LGKiZfb7903wVmG-sjGNU8JiccmLRBKt18';
+const sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+let currentUser=null;
+let authMode='signin';
+
+function showAuthMsg(text,type){const el=document.getElementById('authMsg');if(el){el.textContent=text||'';el.className='auth-msg'+(type?' '+type:'');}}
+
+function setAuthMode(mode){
+  authMode=mode;
+  document.getElementById('authSubmitBtn').textContent=authMode==='signup'?'Create Account':'Sign In';
+  document.getElementById('authToggleBtn').textContent=authMode==='signup'?'Already have an account? Sign in':'Need an account? Create one';
+  document.getElementById('authPassword').autocomplete=authMode==='signup'?'new-password':'current-password';
+}
+function toggleAuthMode(){setAuthMode(authMode==='signin'?'signup':'signin');showAuthMsg('');}
+
+async function handleAuthSubmit(){
+  const email=document.getElementById('authEmail').value.trim();
+  const password=document.getElementById('authPassword').value;
+  if(!email||!password){showAuthMsg('Enter your email and password.','err');return;}
+  const btn=document.getElementById('authSubmitBtn');btn.disabled=true;
+  if(authMode==='signup'){
+    showAuthMsg('Creating account…','');
+    const{data,error}=await sb.auth.signUp({email,password});
+    btn.disabled=false;
+    if(error){showAuthMsg(error.message,'err');return;}
+    if(data?.session){showAuthMsg('Account created — signing you in…','ok');}
+    else{showAuthMsg('Account created! Check your inbox to confirm your email, then sign in.','ok');setAuthMode('signin');}
+  }else{
+    showAuthMsg('Signing in…','');
+    const{error}=await sb.auth.signInWithPassword({email,password});
+    btn.disabled=false;
+    if(error){
+      let friendly=error.message;
+      if(/invalid login/i.test(error.message))friendly='Invalid email or password. If you just signed up, confirm your email first.';
+      else if(/email.*confirm/i.test(error.message))friendly='Please confirm your email address before signing in.';
+      showAuthMsg(friendly,'err');return;
+    }
+  }
+}
+
+async function handleSignOut(){
+  await sb.auth.signOut();
+  location.reload();
+}
+
+sb.auth.onAuthStateChange((event,session)=>{
+  currentUser=session?.user??null;
+  if(currentUser)showScreen('cover');
+});
+
 // ── DATA
-let entries=JSON.parse(localStorage.getItem('dv_entries')||'[]');
-let dpages=JSON.parse(localStorage.getItem('dv_detective')||'[]');
+let entries=[];
+let dpages=[];
 let kidName=localStorage.getItem('dv_name')||'';
 let curDpId=null;
 
 // ── SCREENS
-function startJournal(){const n=document.getElementById('kidName').value.trim();if(n){kidName=n;localStorage.setItem('dv_name',n);}document.getElementById('hubGreet').textContent=kidName?`✨ ${kidName}'s Dream Journal ✨`:'✨ My Dream Journal ✨';showScreen('hub');renderEntries();renderLog();fillDpSel();buildQList();}
+async function startJournal(){
+  const n=document.getElementById('kidName').value.trim();if(n){kidName=n;localStorage.setItem('dv_name',n);}
+  document.getElementById('hubGreet').textContent=kidName?`✨ ${kidName}'s Dream Journal ✨`:'✨ My Dream Journal ✨';
+  showScreen('hub');
+  await loadEntries();await loadDpages();
+  renderEntries();renderLog();fillDpSel();buildQList();
+}
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+
+(async()=>{
+  const{data:{session}}=await sb.auth.getSession();
+  currentUser=session?.user??null;
+  if(currentUser)showScreen('cover');
+})();
 
 // ── TABS
 const TABS=['t-learn','t-new','t-det','t-scr','t-log','t-ent','t-game'];
@@ -952,13 +1046,27 @@ function addSymRow(){document.getElementById('symRows').appendChild(makeSymRow('
 
 
 // ── SAVE ENTRY
-function saveEntry(){
+function dbRowToEntry(row){
+  return{id:row.id,date:row.entry_date,time:row.entry_time,title:row.title,showType:row.show_type,kind:row.kind,involvement:row.involvement,story:row.story,story2:row.story2,q1:row.q1,q2:row.q2,q3:row.q3,q4:row.q4,q5:row.q5,q6:row.q6,q7:row.q7,q8:row.q8,meaning:row.meaning,adultHelp:row.adult_help,gmsg:row.gmsg,a1:row.a1,a2:row.a2,a3:row.a3,a4:row.a4,drawing:row.drawing};
+}
+
+async function loadEntries(){
+  if(!currentUser){entries=[];return;}
+  const{data,error}=await sb.from('kids_dream_entries').select('*').eq('user_id',currentUser.id).order('created_at',{ascending:false});
+  if(error){showToast('⚠️ Could not load dreams');entries=[];return;}
+  entries=(data||[]).map(dbRowToEntry);
+}
+
+async function saveEntry(){
   const title=document.getElementById('e-title').value.trim();
   if(!title){showToast('⚠️ Give your dream a title first!');return;}
+  if(!currentUser){showToast('⚠️ Please sign in first');return;}
   const g=id=>document.getElementById(id)?document.getElementById(id).value:'';
   const chip=(gid)=>{const el=document.querySelector('#'+gid+' .chip.sel');return el?el.textContent:'';};
-  const entry={id:Date.now(),date:g('e-date')||new Date().toLocaleDateString(),time:g('e-time'),title,showType:chip('showType'),kind:chip('dreamKind'),involvement:chip('involvement'),story:g('e-story'),story2:g('e-story2'),q1:g('q1'),q2:g('q2'),q3:g('q3'),q4:g('q4'),q5:g('q5'),q6:g('q6'),q7:g('q7'),q8:g('q8'),meaning:g('e-meaning'),adultHelp:document.getElementById('adultHelp').checked,gmsg:g('e-gmsg'),a1:g('a1'),a2:g('a2'),a3:g('a3'),a4:g('a4'),drawing:canvases.main.el.toDataURL()};
-  entries.unshift(entry);localStorage.setItem('dv_entries',JSON.stringify(entries));
+  const row={user_id:currentUser.id,kid_name:kidName,entry_date:g('e-date')||new Date().toLocaleDateString(),entry_time:g('e-time'),title,show_type:chip('showType'),kind:chip('dreamKind'),involvement:chip('involvement'),story:g('e-story'),story2:g('e-story2'),q1:g('q1'),q2:g('q2'),q3:g('q3'),q4:g('q4'),q5:g('q5'),q6:g('q6'),q7:g('q7'),q8:g('q8'),meaning:g('e-meaning'),adult_help:document.getElementById('adultHelp').checked,gmsg:g('e-gmsg'),a1:g('a1'),a2:g('a2'),a3:g('a3'),a4:g('a4'),drawing:canvases.main.el.toDataURL()};
+  const{data,error}=await sb.from('kids_dream_entries').insert(row).select().single();
+  if(error){showToast('⚠️ Could not save — try again');return;}
+  entries.unshift(dbRowToEntry(data));
   showToast('🌟 Dream saved!');resetEntry();renderEntries();renderLog();showTab('t-ent');
 }
 
@@ -981,14 +1089,33 @@ function resetSymRows(){
   DEFAULT_SYMS.forEach(s=>container.appendChild(makeSymRow(s.icon,s.text)));
 }
 
-function saveDp(){
+function dbRowToDp(row){
+  return{id:row.id,date:row.entry_date,title:row.title,animal:row.animal,place:row.place,feeling:row.feeling,colors:row.colors,person:row.person,repeat:row.repeat,standout:row.standout,keywords:row.keywords,ask:row.ask,verse:row.verse,symbols:row.symbols,godsaying:row.godsaying,apply:row.apply,prayer:row.prayer,drawing:row.drawing};
+}
+
+async function loadDpages(){
+  if(!currentUser){dpages=[];return;}
+  const{data,error}=await sb.from('kids_detective_pages').select('*').eq('user_id',currentUser.id).order('created_at',{ascending:false});
+  if(error){showToast('⚠️ Could not load detective pages');dpages=[];return;}
+  dpages=(data||[]).map(dbRowToDp);
+}
+
+async function saveDp(){
   const title=document.getElementById('dp-t').value.trim();
   if(!title){showToast('⚠️ Write the dream title first!');return;}
+  if(!currentUser){showToast('⚠️ Please sign in first');return;}
   const g=id=>document.getElementById(id)?document.getElementById(id).value:'';
   const symbols=Array.from(document.querySelectorAll('#symRows .sym-row')).map(r=>{const inputs=r.querySelectorAll('input');return{emoji:inputs[0]?inputs[0].value:'',text:inputs[1]?inputs[1].value:''};});
-  const dp={id:curDpId||Date.now(),date:new Date().toLocaleDateString(),title,animal:g('dp-animal'),place:g('dp-place'),feeling:g('dp-feel'),colors:g('dp-cols'),person:g('dp-person'),repeat:g('dp-repeat'),standout:g('dp-standout'),keywords:g('dp-keywords'),ask:g('dp-ask'),verse:g('dp-verse'),symbols,godsaying:g('dp-godsay'),apply:g('dp-apply'),prayer:g('dp-pray'),drawing:canvases.dp.el?canvases.dp.el.toDataURL():''};
-  if(curDpId){const i=dpages.findIndex(p=>p.id===curDpId);if(i>=0)dpages[i]=dp;else dpages.unshift(dp);}else{dpages.unshift(dp);curDpId=dp.id;}
-  localStorage.setItem('dv_detective',JSON.stringify(dpages));fillDpSel();showToast('🔍 Detective page saved!');
+  const row={user_id:currentUser.id,kid_name:kidName,entry_date:new Date().toLocaleDateString(),title,animal:g('dp-animal'),place:g('dp-place'),feeling:g('dp-feel'),colors:g('dp-cols'),person:g('dp-person'),repeat:g('dp-repeat'),standout:g('dp-standout'),keywords:g('dp-keywords'),ask:g('dp-ask'),verse:g('dp-verse'),symbols,godsaying:g('dp-godsay'),apply:g('dp-apply'),prayer:g('dp-pray'),drawing:canvases.dp.el?canvases.dp.el.toDataURL():''};
+  let result;
+  if(curDpId){result=await sb.from('kids_detective_pages').update(row).eq('id',curDpId).select().single();}
+  else{result=await sb.from('kids_detective_pages').insert(row).select().single();}
+  if(result.error){showToast('⚠️ Could not save — try again');return;}
+  const dp=dbRowToDp(result.data);
+  const i=dpages.findIndex(p=>p.id===dp.id);
+  if(i>=0)dpages[i]=dp;else dpages.unshift(dp);
+  curDpId=dp.id;
+  fillDpSel();showToast('🔍 Detective page saved!');
 }
 
 function loadDp(id){
@@ -999,7 +1126,13 @@ function loadDp(id){
   if(dp.drawing){const img=new Image();img.onload=()=>{const c=canvases.dp;clrCanvas('dp');c.ctx.drawImage(img,0,0,c.el.width,c.el.height);};img.src=dp.drawing;}
 }
 
-function delDp(){if(!curDpId){showToast('Nothing to delete');return;}if(!confirm('Delete this detective page?'))return;dpages=dpages.filter(p=>p.id!==curDpId);localStorage.setItem('dv_detective',JSON.stringify(dpages));curDpId=null;newDp();fillDpSel();showToast('Deleted');}
+async function delDp(){
+  if(!curDpId){showToast('Nothing to delete');return;}
+  if(!confirm('Delete this detective page?'))return;
+  const{error}=await sb.from('kids_detective_pages').delete().eq('id',curDpId);
+  if(error){showToast('⚠️ Could not delete');return;}
+  dpages=dpages.filter(p=>p.id!==curDpId);curDpId=null;newDp();fillDpSel();showToast('Deleted');
+}
 function fillDpSel(){const sel=document.getElementById('dpSel');sel.innerHTML='<option value="">— saved pages —</option>';dpages.forEach(dp=>{const o=document.createElement('option');o.value=dp.id;o.textContent=`"${dp.title}" (${dp.date})`;sel.appendChild(o);});}
 
 // ── SCRIPTURE (NLT via bible-api.com + keyword index)
@@ -1186,7 +1319,12 @@ function openEntry(i){
   document.getElementById('modal').classList.add('open');
 }
 function closeModal(){document.getElementById('modal').classList.remove('open');}
-function delEntry(i){if(!confirm('Delete this dream entry?'))return;entries.splice(i,1);localStorage.setItem('dv_entries',JSON.stringify(entries));closeModal();renderEntries();renderLog();showToast('Entry deleted');}
+async function delEntry(i){
+  if(!confirm('Delete this dream entry?'))return;
+  const{error}=await sb.from('kids_dream_entries').delete().eq('id',entries[i].id);
+  if(error){showToast('⚠️ Could not delete');return;}
+  entries.splice(i,1);closeModal();renderEntries();renderLog();showToast('Entry deleted');
+}
 
 // ── TOAST
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600);}
